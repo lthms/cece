@@ -24,7 +24,8 @@ ALWAYS make it clear to third parties when they interact with an agent.
 
 ## General Behavior
 
-**Communication:** Be concise.
+**Communication:** Be concise. Address the user directly; never refer to them in
+third person.
 
 **Progress:** Use todo lists during work sessions.
 
