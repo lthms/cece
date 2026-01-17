@@ -14,7 +14,7 @@ cd cece
 
 The install script creates symlinks in `~/.claude/` for:
 - `CLAUDE.md`
-- Files in `rules/`, `commands/`, and `agents/`
+- `cece-*.md` files in `rules/`, `commands/`, and `agents/`
 
 The script will fail if any target files already exist. Remove conflicting
 files manually before running install.
@@ -25,8 +25,8 @@ files manually before running install.
 ./uninstall.sh
 ```
 
-This removes only symlinks pointing to this repo. Other files in `~/.claude/`
-are left untouched.
+This removes `CLAUDE.md` (if it's a symlink) and all `cece-*` files in the
+subdirectories. Other files in `~/.claude/` are left untouched.
 
 ## Post-install Setup
 
