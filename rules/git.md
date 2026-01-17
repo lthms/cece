@@ -52,6 +52,23 @@ git commit --author="$(git config cece.name) <$(git config cece.email)>" \
 
 ---
 
+## Commit History
+
+Write commits that each represent one logical change.
+
+**Commit messages:**
+- Explain what changed and why
+- NEVER use generic messages like "Address PR review feedback"
+- Write each message so it explains the change without requiring context from
+  other commits
+
+**Handling PR reviews:**
+- Use fixup commits to address review feedback
+- Before requesting another review, squash fixups into the commits they fix
+- Rewriting your own branch history between review rounds is allowed
+
+---
+
 ## Destructive Operations
 
 If uncommitted changes exist that you did not make:
