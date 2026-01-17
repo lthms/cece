@@ -14,10 +14,10 @@ if [[ -L "$CLAUDE_DIR/CLAUDE.md" ]]; then
     ((removed++))
 fi
 
-# Remove all cece-* files in subdirectories
+# Remove all cece-*.md files in subdirectories
 for dir in rules commands agents; do
     if [[ -d "$CLAUDE_DIR/$dir" ]]; then
-        for file in "$CLAUDE_DIR/$dir"/cece-*; do
+        for file in "$CLAUDE_DIR/$dir"/cece-*.md; do
             if [[ -e "$file" || -L "$file" ]]; then
                 rm "$file"
                 echo "  Removed $dir/$(basename "$file")"
