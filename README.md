@@ -52,6 +52,22 @@ own fork. Provide an issue reference or describe the task to create one.
 
 Send `stop` to interrupt and return to chat mode.
 
+### Creating Commands
+
+To create a new command mode:
+
+```
+/cece:wizard [name] [scope...]
+```
+
+The wizard (🧙) guides you through defining a command interactively. Arguments
+are optional — provide a name to prefill it, or name and scope together.
+
+Examples:
+- `/cece:wizard` — full interactive flow
+- `/cece:wizard focus` — prefills name as "focus"
+- `/cece:wizard focus Focus on a single question` — prefills name and scope
+
 ## Key Principles
 
 **Transparency:** CeCe uses dedicated accounts and git identity. Actions are

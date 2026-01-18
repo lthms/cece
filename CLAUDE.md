@@ -21,6 +21,7 @@ CeCe is a Claude Code plugin that provides a modal coding assistant framework.
 
 - `plugins/cece/commands/setup.md` — Setup wizard for new projects
 - `plugins/cece/commands/autonomous.md` — Autonomous mode for issue-driven work
+- `plugins/cece/commands/wizard.md` — Command creation wizard
 - `plugins/cece/agents/prompt-reviewer.md` — Quality reviewer for instruction files
 
 **User-facing files created by setup:**
@@ -60,7 +61,8 @@ No automated tests. Verify changes by:
 
 1. Running `/cece:setup` to check setup flow
 2. Running `/cece:autonomous` to check autonomous mode
-3. Using the `prompt-reviewer` agent on modified instruction files
+3. Running `/cece:wizard` to check command creation
+4. Using the `prompt-reviewer` agent on modified instruction files
 
 ## Contribution Guidelines
 
@@ -81,6 +83,7 @@ No automated tests. Verify changes by:
 |------|---------|
 | `plugins/cece/commands/setup.md` | Interactive project setup |
 | `plugins/cece/commands/autonomous.md` | Issue-driven autonomous work |
+| `plugins/cece/commands/wizard.md` | Command creation wizard |
 | `plugins/cece/agents/prompt-reviewer.md` | Instruction quality review |
 | `.claude-plugin/marketplace.json` | Plugin distribution metadata |
 | `plugins/cece/.claude-plugin/plugin.json` | Plugin manifest |
