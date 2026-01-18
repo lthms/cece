@@ -1,6 +1,24 @@
 #!/bin/bash
 set -euo pipefail
 
+# =============================================================================
+# DEPRECATED: This script is deprecated.
+#
+# CeCe is now a Claude Code plugin. To install:
+#
+#   1. Load the plugin:
+#      claude --plugin-dir /path/to/cece
+#
+#   2. Run setup in your project:
+#      /cece:setup
+#
+# This script is kept for backwards compatibility during the transition.
+# =============================================================================
+
+echo "WARNING: install.sh is deprecated. CeCe is now a Claude Code plugin."
+echo "See README.md for new installation instructions."
+echo ""
+
 CLAUDE_DIR="$HOME/.claude"
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 
