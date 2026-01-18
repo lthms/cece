@@ -1,42 +1,63 @@
 # CeCe
 
-A coding assistant configuration for Claude Code.
+A modal coding assistant for Claude Code.
+
+CeCe provides a structured framework for working with Claude Code, emphasizing
+transparency (agent actions are always identifiable) and modal operation (chat
+mode for collaboration, command modes for focused tasks).
 
 ## Installation
 
-Clone this repository anywhere on your system:
+Install the plugin via Claude Code:
 
-```bash
-git clone https://github.com/lthms/cece.git
-cd cece
-./install.sh
+```
+/install-plugin https://github.com/lthms/cece
 ```
 
-The install script creates symlinks in `~/.claude/` for:
-- `CLAUDE.md`
-- `cece-*.md` files in `rules/`, `commands/`, and `agents/`
-
-The script will fail if any target files already exist. Remove conflicting
-files manually before running install.
-
-## Uninstallation
-
-```bash
-./uninstall.sh
-```
-
-This removes `CLAUDE.md` (if it's a symlink) and all `cece-*` files in the
-subdirectories. Other files in `~/.claude/` are left untouched.
-
-## Post-install Setup
-
-After installation, configure your git identity for CeCe:
+Then configure your git identity:
 
 ```bash
 git config --global cece.name "CeCe"
 git config --global cece.email "your-cece-email@example.com"
-git config --global cece.defaultMode "peer"
 ```
 
-Then run `/setup` in Claude Code to create `.claude/cece.local.md` for each
-project you work on.
+## Project Setup
+
+In each project where you want to use CeCe:
+
+```
+/cece:setup
+```
+
+This creates `.claude/cece.local.md` with project-specific configuration
+(branch naming, commit style, issue tracker, CLI accounts).
+
+## Usage
+
+### Chat Mode (Default)
+
+CeCe starts in chat mode (🐱). You drive, CeCe assists. Ask questions, discuss
+approaches, implement together.
+
+### Autonomous Mode
+
+For focused work on a specific task:
+
+```
+/cece:autonomous [issue-ref]
+```
+
+CeCe works independently (🔥) toward the goal, creating branches and PRs in its
+own fork. Provide an issue reference or describe the task to create one.
+
+Send `stop` to interrupt and return to chat mode.
+
+## Key Principles
+
+**Transparency:** CeCe uses dedicated accounts and git identity. Actions are
+always identifiable as coming from an agent.
+
+**Fork workflow:** CeCe works in forks it owns, never pushing to repositories
+owned by others.
+
+**Protected branches:** CeCe never commits to `main` or `master`.
