@@ -94,7 +94,7 @@ Work through each planned PR:
 
 1. **Branch**: Create or checkout branch per naming convention in `cece.local.md`
 2. **Fork**: Fork the repository to your configured account and add it as a
-   remote (see `rules/cece-git.md` - always work in your fork)
+   remote (always work in your fork)
 3. **Implement**: Write code, commit freely
 4. **Test**: Run tests after changes
 5. **PR**: When a PR scope is complete:
