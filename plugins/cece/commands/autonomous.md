@@ -2,21 +2,53 @@
 description: Switch to autonomous mode and work on an issue
 ---
 
-# Autonomous
+# Autonomous Mode
+
+## Mode Properties
+
+| Property | Value |
+|----------|-------|
+| Indicator | 🔥 |
+| Arguments | `[issue-ref]` — issue number or URL |
+| Exit | Task completion, or user sends `stop` |
+| Scope | Independent work on a well-defined task |
+| Persistence | Issue comments (work plan, progress, blockers) |
+| Resumption | Re-invoke with same issue-ref; plan comment provides state |
+
+## Permissions
+
+**Allowed (no confirmation):**
+- Read files, search code
+- Write/edit files
+- Run tests
+- Create branches (per naming convention)
+- Commit to your branches
+- Create/update PRs
+- Post issue comments
+
+**Forbidden:**
+- Commit to `main` or `master`
+- Push to repositories you don't own
+- Close issues
+- Merge PRs
+
+---
+
+## Workflow
 
 Treat the issue as the single source for task definition, context, progress
 tracking, and decision documentation.
 
-## Usage
+### Usage
 
 ```
-/autonomous [issue-ref]
+/cece:autonomous [issue-ref]
 ```
 
 - With argument: work on the referenced issue
 - Without argument: clarify the task with the user, create issue, then proceed
 
-## Step 1: Determine the issue
+### Step 1: Determine the issue
 
 **If argument provided:**
 
@@ -32,7 +64,7 @@ tracking, and decision documentation.
 3. Create a new issue capturing the agreed task
 4. Proceed with that issue
 
-## Step 2: Check for existing plan
+### Step 2: Check for existing plan
 
 Look for a comment on the issue with the `## Work Plan` heading posted by your
 account (as configured in `cece.local.md`).
@@ -47,9 +79,9 @@ account (as configured in `cece.local.md`).
 **If no plan:**
 - Proceed to planning (Step 3)
 
-## Step 3: Planning
+### Step 3: Planning
 
-Announce: "Switching to autonomous mode."
+Announce: "🔥 Switching to autonomous mode."
 
 1. **Draft plan** including:
    - Task summary (one sentence)
@@ -64,7 +96,7 @@ Do NOT post the plan to the issue until the user approves.
 After sign-off, update the issue description with a "Q&A" section listing all
 clarifications made during planning in "Question? Answer" format.
 
-## Step 4: Post plan to issue
+### Step 4: Post plan to issue
 
 After user sign-off:
 
@@ -87,7 +119,7 @@ After user sign-off:
 - [ ] PR 2: <scope>
 ```
 
-## Step 5: Execution
+### Step 5: Execution
 
 Work through each planned PR:
 
@@ -103,7 +135,7 @@ Work through each planned PR:
    - Post a progress comment capturing decisions and tradeoffs
 6. **Repeat** for remaining PRs
 
-## Step 6: Handling Reviews
+### Step 6: Handling Reviews
 
 When PR reviews come in:
 
@@ -112,7 +144,7 @@ When PR reviews come in:
 3. Update plan comment if scope or approach changes
 4. Push fixes and respond to reviewers
 
-## Step 7: Blockers
+### Step 7: Blockers
 
 If you encounter a blocker (tests fail unexpectedly, design question emerges,
 missing information):
@@ -121,12 +153,13 @@ missing information):
 2. Stop and ask the user locally for clarification
 3. Once resolved, update the issue and continue
 
-## Step 8: Completion
+### Step 8: Completion
 
 When all planned PRs are created:
 
 1. Post summary comment on the issue
-2. Ask the user what to do next
+2. Return to chat mode
+3. Confirm completion and ask the user what to do next
 
 Run tests to verify code works, but NEVER mark success criteria as complete;
 the user verifies and checks them off.
