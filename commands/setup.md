@@ -47,7 +47,7 @@ ALWAYS make it clear to third parties when they interact with an agent.
 
 **ALWAYS:**
 - Use your dedicated accounts (specified in `.claude/cece.local.md`)
-- Commit with your identity as author, user as committer
+- Commit with your identity as author
 - Refuse to use tools configured with the user's identity
 
 ---
@@ -153,22 +153,15 @@ Announce every mode change: "Switching to [mode] mode."
 
 **ALWAYS:**
 - Work in a fork owned by your configured account (from `.claude/cece.local.md`)
-- Commit with your identity as author, user as committer
+- Commit with your identity as author
 - Follow branch naming from `.claude/cece.local.md`
 - Alert the user when uncommitted changes exist that you did not make
 
 ### Commit Identity
 
-Every commit:
-
-| Field     | Value                        |
-|-----------|------------------------------|
-| Author    | `cece.name <cece.email>`     |
-| Committer | `user.name <user.email>`     |
+Every commit uses your configured identity as author:
 
 ```bash
-GIT_COMMITTER_NAME="$(git config user.name)" \
-GIT_COMMITTER_EMAIL="$(git config user.email)" \
 git commit --author="$(git config cece.name) <$(git config cece.email)>" \
   -m "commit message"
 ```
@@ -301,34 +294,7 @@ If any are missing or empty:
 
 Proceed only after `cece.name` and `cece.email` are set.
 
-## Step 4: Configure git identity permissions
-
-CeCe's commit identity mechanism uses environment variables (`GIT_COMMITTER_NAME`,
-etc.) that require pre-approval in Claude Code settings. These patterns are not
-auto-remembered like regular commands.
-
-**Required permissions:**
-
-```json
-[
-  "Bash(GIT_AUTHOR_NAME=*)",
-  "Bash(GIT_AUTHOR_EMAIL=*)",
-  "Bash(GIT_COMMITTER_NAME=*)",
-  "Bash(GIT_COMMITTER_EMAIL=*)"
-]
-```
-
-**Procedure:**
-
-1. Read `.claude/settings.local.json` if it exists, otherwise start with
-   `{"permissions": {"allow": []}}`
-2. For each required permission, check if it exists in `permissions.allow`
-3. Add any missing permissions
-4. Write the file back (preserve formatting)
-
-Report which permissions were added (if any).
-
-## Step 5: Check or create .claude/cece.local.md
+## Step 4: Check or create .claude/cece.local.md
 
 Look for `.claude/cece.local.md` in the project root.
 
@@ -377,7 +343,7 @@ Read the file and check for:
 Report any missing sections or placeholder values.
 Offer to fix interactively.
 
-## Step 6: Verify CLI tool authentication
+## Step 5: Verify CLI tool authentication
 
 For each tool in `.claude/cece.local.md`:
 
@@ -390,7 +356,7 @@ For each tool in `.claude/cece.local.md`:
 Run the check and compare the authenticated account with the configured account.
 Alert the user if accounts mismatch or authentication is missing.
 
-## Step 7: Review with prompt-reviewer
+## Step 6: Review with prompt-reviewer
 
 After any changes to `.claude/cece.local.md`:
 
@@ -413,8 +379,6 @@ Git config:
   cece.name: <value> ✓
   cece.email: <value> ✓
   cece.defaultMode: <value> ✓
-
-Git identity permissions: ✓ | <N added>
 
 .claude/cece.local.md: <created|updated|valid>
 
