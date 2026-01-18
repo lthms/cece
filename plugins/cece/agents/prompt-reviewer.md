@@ -30,7 +30,8 @@ Check each file against these rules:
 **Conciseness:**
 - Remove redundant words
 - One idea per bullet point
-- Omit explanations unless they prevent misunderstanding
+- Include explanations only when the instruction is non-obvious to someone
+  unfamiliar with the context
 
 ## Output Format
 

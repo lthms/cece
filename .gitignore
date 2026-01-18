@@ -16,7 +16,6 @@ debug/
 statsig/
 telemetry/
 projects/
-plugins/
 
 # Misc
 .update.lock

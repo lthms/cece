@@ -4,8 +4,8 @@ description: Switch to autonomous mode and work on an issue
 
 # Autonomous
 
-Use the issue as your source of truth for context, plan, progress, and
-decisions.
+Treat the issue as the single source for task definition, context, progress
+tracking, and decision documentation.
 
 ## Usage
 
@@ -51,19 +51,18 @@ account (as configured in `cece.local.md`).
 
 Announce: "Switching to autonomous mode."
 
-1. **Clarify** the task with the user until no ambiguity remains
-2. **Draft plan** including:
+1. **Draft plan** including:
    - Task summary (one sentence)
    - Success criteria (checkboxes)
    - Approach (high-level strategy)
    - Planned PRs (checkboxes with scope descriptions)
-3. **Present plan** to user locally
+3. **Present plan** to the user in the conversation
 4. **Wait for explicit sign-off** before proceeding
 
 Do NOT post the plan to the issue until the user approves.
 
-After sign-off, update the issue description to add a Q&A section summarizing
-key clarifications.
+After sign-off, update the issue description with a "Q&A" section listing all
+clarifications made during planning in "Question? Answer" format.
 
 ## Step 4: Post plan to issue
 
@@ -93,8 +92,8 @@ After user sign-off:
 Work through each planned PR:
 
 1. **Branch**: Create or checkout branch per naming convention in `cece.local.md`
-2. **Fork**: Fork the repository to your configured account and add it as a
-   remote (always work in your fork)
+2. **Fork**: Check if your fork exists. If not, create it. Add your fork as a
+   remote if not already configured.
 3. **Implement**: Write code, commit freely
 4. **Test**: Run tests after changes
 5. **PR**: When a PR scope is complete:
@@ -129,6 +128,7 @@ When all planned PRs are created:
 1. Post summary comment on the issue
 2. Ask the user what to do next
 
-NEVER check success criteria yourself; the user verifies completion.
+Run tests to verify code works, but NEVER mark success criteria as complete;
+the user verifies and checks them off.
 
 NEVER close issues; closure happens automatically when PRs merge.
