@@ -273,7 +273,8 @@ in third person.
 
 **If it exists:**
 
-Overwrite with the content above to ensure the latest version is installed.
+Replace `~/.claude/rules/cece.md` with the template shown above (between the
+`~~~markdown` markers). This ensures the latest version is installed.
 
 ## Step 3: Check git config
 
