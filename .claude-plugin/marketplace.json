@@ -4,7 +4,7 @@
   "plugins": [
     {
       "name": "cece",
-      "source": ".",
+      "source": "./plugins/cece",
       "description": "CeCe - A modal coding assistant"
     }
   ]
