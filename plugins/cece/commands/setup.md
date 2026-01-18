@@ -325,11 +325,11 @@ For each tool in `.claude/cece.local.md`:
 Run the check and compare the authenticated account with the configured account.
 Stop and alert the user if accounts mismatch or authentication is missing.
 
-## Step 6: Review with prompt-reviewer
+## Step 6: Review with self-quality-assurance
 
 After any changes to `.claude/cece.local.md`:
 
-1. Run `prompt-reviewer` on `.claude/cece.local.md`
+1. Run `self-quality-assurance` on `.claude/cece.local.md`
 2. Apply all critical issue fixes
 3. Apply non-critical fixes that do not alter the meaning of user-provided values
 4. Re-run reviewer until no critical issues remain

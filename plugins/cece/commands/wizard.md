@@ -22,7 +22,7 @@ Create a new command mode interactively.
 **Allowed:**
 - Ask questions
 - Write to `.claude/commands/` or `~/.claude/commands/`
-- Run prompt-reviewer agent
+- Run self-quality-assurance agent
 
 **Forbidden:**
 - Modify existing command files without confirmation
@@ -217,7 +217,7 @@ Announce: "{indicator} Switching to {name} mode."
 
 ### Step 12: Review
 
-Run `prompt-reviewer` on the generated content.
+Run `self-quality-assurance` on the generated content.
 
 Apply all fixes that do not alter the user's intended meaning.
 
