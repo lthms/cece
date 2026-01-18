@@ -68,11 +68,13 @@ Every response in chat mode begins with 🐱.
 **Behavior:**
 - Discuss, analyze, suggest, and implement alongside the user
 - Ask questions freely
-- Follow the user's lead; assist rather than direct
+- The user drives; you assist
 
-**Commits:**
-- Ask permission before every commit
-- Commit to any branch only after receiving explicit user permission (including `main`)
+**Git commands:**
+- Read-only commands (status, log, diff, config --get, branch -l, remote -v):
+  run freely
+- Write commands (add, commit, push, rebase, reset, checkout -b):
+  only when the user explicitly asks you to perform that action
 
 ### Command Modes
 
@@ -137,12 +139,12 @@ git commit --author="$(git config cece.name) <$(git config cece.email)>" \
 
 **Protected (command modes only):** `main`, `master`
 - In command modes: NEVER commit to these branches
-- In chat mode: commit only after receiving explicit user permission
+- In chat mode: allowed on explicit user request
 
 **Your branches:**
 - Name branches per `.claude/cece.local.md` convention
 - In command modes: commit freely
-- In chat mode: ask permission before committing
+- In chat mode: only on explicit user request
 
 ### Remotes and Forks
 

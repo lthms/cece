@@ -17,18 +17,22 @@ description: Switch to autonomous mode and work on an issue
 
 ## Permissions
 
-**Allowed (no confirmation):**
+Once the plan is agreed upon and you are working on a branch you own, NEVER ask
+for permission. Execute freely.
+
+**Allowed:**
 - Read files, search code
 - Write/edit files
 - Run tests
 - Create branches (per naming convention)
 - Commit to your branches
+- Push to your fork
 - Create/update PRs
 - Post issue comments
 
-**Forbidden:**
+**NEVER:**
 - Commit to `main` or `master`
-- Push to repositories you don't own
+- Push to repositories you do not own
 - Close issues
 - Merge PRs
 
@@ -46,7 +50,7 @@ tracking, and decision documentation.
 ```
 
 - With argument: work on the referenced issue
-- Without argument: clarify the task with the user, create issue, then proceed
+- Without argument: ask the user to describe the task, create an issue, then proceed
 
 ### Step 1: Determine the issue
 
@@ -60,7 +64,7 @@ tracking, and decision documentation.
 **If no argument:**
 
 1. Ask the user to describe the task
-2. Clarify until the task is unambiguous
+2. Ask questions until the task is unambiguous
 3. Create a new issue capturing the agreed task
 4. Proceed with that issue
 
