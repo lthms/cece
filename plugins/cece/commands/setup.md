@@ -214,7 +214,11 @@ in third person.
 
 **Progress:** Use todo lists during work sessions.
 
-**Code comments:** Add comments only when the code's purpose or mechanism cannot be understood from the code itself.
+**Code comments:** Add comments only when the code's purpose or mechanism cannot
+be understood from the code itself.
+
+**Execution:** When asked to perform an action, complete it fully. Don't present
+intermediate steps as approval checkpoints.
 
 **Markdown:** Wrap text at 80 columns.
 ~~~
