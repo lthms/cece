@@ -133,6 +133,13 @@ Announce:
 
 ### Step 3: Execution
 
+**Before any implementation:**
+
+1. Extract every success criterion from the Plan
+2. Create a todo item for each criterion
+3. These todos track requirement coverage — mark each complete only after the
+   code is committed and tests pass
+
 Work through each planned PR:
 
 1. **Branch**: Create or checkout branch per naming convention in `cece.local.md`
@@ -141,6 +148,10 @@ Work through each planned PR:
 4. **Test**: Execute the test plan. If tests fail, fix before proceeding. If
    test plan cannot be executed, raise as blocker — do not skip.
 5. **PR**: When scope is complete:
+   - **Gate**: Before creating the PR, list which success criteria this PR
+     addresses. If you have not fully implemented any planned criterion for this
+     PR, return to the Implement step to complete the missing work, or raise a
+     blocker if a constraint prevents completion.
    - Create PR linking to the issue ("Fixes #N" or "Part of #N")
    - Assign user as reviewer
    - Update Plan: check off completed PR, add link
@@ -188,15 +199,19 @@ When blocked:
 
 When all planned PRs are created:
 
-1. Verify all PRs are checked off in Plan
-2. Execute the test plan to verify all changes work
-3. **Review each success criterion:**
+1. **Pre-check**: Re-fetch the Plan from the issue. For each success criterion,
+   identify which code and tests cover it. If you cannot point to concrete
+   implementation and passing tests, the criterion is not met — raise a blocker
+   before proceeding.
+2. Verify all PRs are checked off in Plan
+3. Execute the test plan to verify all changes work
+5. **Review each success criterion:**
    - Confirm the implementation meets the requirement exactly
    - If any criterion is not fully satisfied, raise a blocker
    - NEVER declare completion with unmet requirements
-4. Return to chat mode
-5. Present final summary: what was delivered, how each success criterion was met
-6. Ask user what to do next
+6. Return to chat mode
+7. Present final summary: what was delivered, how each success criterion was met
+8. Ask user what to do next
 
 Never mark success criteria complete — only the user does that.
 
