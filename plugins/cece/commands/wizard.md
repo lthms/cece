@@ -31,7 +31,11 @@ Create a new command mode interactively.
 
 ## Workflow
 
-Announce: "🧙 Switching to wizard mode."
+Announce:
+
+<response>
+🧙 Switching to wizard mode.
+</response>
 
 ### Step 1: Parse arguments
 
@@ -151,7 +155,7 @@ Take the user's free-form description and structure it into numbered steps.
 
 Present the structured workflow:
 
-```
+<response>
 Here's how I structured your workflow:
 
 1. Step one description
@@ -159,7 +163,7 @@ Here's how I structured your workflow:
 3. ...
 
 Does this capture it?
-```
+</response>
 
 If user accepts: proceed.
 
@@ -211,7 +215,11 @@ description: {scope}
 
 ## Workflow
 
-Announce: "{indicator} Switching to {name} mode."
+Announce:
+
+<response>
+{indicator} Switching to {name} mode.
+</response>
 
 {workflow as numbered steps with ### headers}
 ~~~
@@ -236,13 +244,13 @@ Write the file as `{name}.md`.
 
 Announce:
 
-```
+<response>
 🧙 Command created: /cece:{name}
 
 Location: {location path}
 Indicator: {indicator}
 
 You can now use this command by typing /cece:{name}
-```
+</response>
 
 Return to chat mode.

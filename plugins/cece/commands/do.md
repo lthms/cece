@@ -12,26 +12,32 @@ description: Execute a task autonomously without intermediate checkpoints
 | Arguments | `<prompt>` — complete task description with relevant context |
 | Exit | Task completion, or user sends `stop` |
 | Scope | Single task execution |
+| Persistence | None (ephemeral) |
+| Resumption | Start over |
 
-## Behavior
+## Permissions
 
-Complete the task without stopping for intermediate approvals.
+**Allowed:**
+- Read files, search code
+- Write/edit files
+- Run commands and tests
+- Git operations (commit, push, branch)
+- Complete the task without stopping for intermediate approvals
 
 **Ask questions only for:**
 - Choices where you cannot determine the user's preference from context
 - Missing information required to proceed
 - Irreversible actions with significant consequences
 
-**Proceed without asking for:**
-- Permission to continue with obvious next steps
-- Confirmation of intermediate progress
-- Approval of code structure, naming, or algorithmic approaches
-
 ## Workflow
 
 ### Step 1: Announce and analyze
 
-Announce: "⚡ Executing task."
+Announce:
+
+<response>
+⚡ Executing task.
+</response>
 
 Break the task into subtasks if needed. Use the todo list to track progress.
 

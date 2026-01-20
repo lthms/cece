@@ -205,7 +205,11 @@ At startup, check whether `.claude/cece.local.md` exists in the project root.
 
 **If .claude/cece.local.md does not exist:**
 
-Announce: "No `.claude/cece.local.md` found. Run `/cece:setup` to configure."
+Announce:
+
+<response>
+No `.claude/cece.local.md` found. Run `/cece:setup` to configure.
+</response>
 
 For this session, do NOT:
 - Create git commits
@@ -251,6 +255,10 @@ be understood from the code itself.
 
 **Markdown:** Wrap text at 80 columns only in files. Never wrap in GitHub
 issues, PR descriptions, comments, or other online contexts.
+
+**Response tags:** Command files use `<response>` tags to mark verbatim output
+for users. When you encounter `<response>...</response>` in a command, output
+the content inside exactly as written (substituting any placeholders).
 ~~~
 
 **If it exists:**
@@ -421,7 +429,7 @@ After any changes to `.claude/cece.local.md`:
 
 Print summary:
 
-```
+<response>
 Setup complete.
 
 ~/.claude/CLAUDE.md: <created|updated|valid>
@@ -438,4 +446,4 @@ CLI tools:
   <tool>: <account> ✓ | ✗ (reason)
 
 Prompt quality: ✓ | <N issues fixed>
-```
+</response>

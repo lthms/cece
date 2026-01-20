@@ -10,7 +10,7 @@ description: Explore the state of the art of a subject and produce a report
 |----------|-------|
 | Indicator | 🔬 |
 | Arguments | `<subject \| path> [prompt]` — a subject to research, or path to report in `~/research/` with optional guidance prompt |
-| Exit | A new iteration of the report has been generated |
+| Exit | Report iteration complete |
 | Scope | Explore the state of the art of a subject and produce a research report |
 | Persistence | File (`~/research/<slug>.md`) |
 | Resumption | Provide path to existing report, optionally followed by a prompt to guide the next iteration |
@@ -45,7 +45,11 @@ URLs; for downloaded documents, note the file path in bibliography.
 
 ## Workflow
 
-Announce: "🔬 Switching to research mode."
+Announce:
+
+<response>
+🔬 Switching to research mode.
+</response>
 
 ### Step 1: Initialize
 
@@ -136,7 +140,11 @@ iterations.
 
 Clean up the `~/research/<slug>/` workspace directory.
 
-Announce the file path containing the updated report.
+Announce:
+
+<response>
+Research complete. Report saved to ~/research/<slug>.md
+</response>
 
 ### Step 9: Complete
 

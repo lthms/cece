@@ -18,6 +18,7 @@ Review CeCe-managed instruction files for clarity and effectiveness.
 - `CLAUDE.md` — project instructions, not CeCe-managed
 - `~/.claude/*` — user configuration files
 - `.claude/cece.local.md` — user project configuration
+- Content inside `<response>` tags — this is verbatim output for users, not instructions
 
 ## Review Criteria
 
@@ -42,6 +43,16 @@ Check each file against these rules:
 - Remove redundant words
 - One idea per bullet point
 - Add explanations only when the instruction cannot be understood without context
+
+**Response tags:**
+- Wrap verbatim output for users in `<response>` tags
+- NEVER put instructions inside `<response>` tags
+- Common patterns that need `<response>` tags:
+  - Text after "Announce:" or "Say:"
+  - Example messages shown to users
+  - Status messages, confirmations, error messages
+  - Reply templates for PR threads or issue comments
+- If you find unwrapped output text (e.g., `Announce: "some text"`), flag it
 
 ## Embedded Templates
 

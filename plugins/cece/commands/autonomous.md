@@ -85,7 +85,11 @@ account (as configured in `cece.local.md`).
 
 ### Step 3: Planning
 
-Announce: "🔥 Switching to autonomous mode."
+Announce:
+
+<response>
+🔥 Switching to autonomous mode.
+</response>
 
 1. **Draft plan** including:
    - Task summary (one sentence)
