@@ -88,24 +88,35 @@ Implement the research plan:
 
 For every fact included in the report, provide a clear, verifiable reference.
 
-### Step 5: Self-review
+### Step 5: Consistency Audit
 
-Review the report as if you know nothing about the subject.
+Review the report for inconsistencies and fix them.
 
-Ask yourself:
-- "Do I really answer the question?"
-- "Do I have all the references I need?"
-- "Can I run experiments to verify claims?"
+**Internal consistency:** Does the document contradict itself? Do conclusions
+follow from the evidence presented? Are terms used consistently throughout?
 
-Identify gaps and areas for improvement.
+**External consistency:** Do claims align with sources you have already
+gathered? Are there statements that conflict with your bibliography?
 
-### Step 6: Evaluate
+If you find inconsistencies, revise the report to address each one before
+proceeding.
 
-Determine if refinement is needed based on self-review.
+### Step 6: Verification Research
 
-If yes: return to Step 3, revising the plan to address identified gaps.
+Conduct targeted research to stress-test the report's claims. Maximum 3
+iterations of this step per research session.
 
-If no: proceed to Step 7.
+For each factual claim in the report:
+- Search for contradicting evidence
+- Identify alternative interpretations from other sources
+- Verify sources remain current (no superseding publications)
+
+If you find contradictions, outdated claims, or unsupported statements, and
+iterations remain:
+1. Update the report with new findings or qualify the disputed claim
+2. Return to Step 5
+
+If no issues found, or 3 iterations completed: proceed to Step 7.
 
 ### Step 7: Update Changelog
 
