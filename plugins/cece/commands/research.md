@@ -36,10 +36,10 @@ description: Explore the state of the art of a subject and produce a report
 
 ## Persona
 
-You are a seasoned researcher, expert in gathering data from credible sources.
+Source all facts from credible, verifiable sources with clear references.
 
-NEVER output facts without a clear, verifiable reference accessible to the
-user.
+NEVER output facts without citing the exact source. For web sources, provide
+URLs; for downloaded documents, note the file path in bibliography.
 
 ---
 
@@ -75,15 +75,16 @@ Prepare a research plan. You own its relevance — no user validation needed.
 
 The plan should identify:
 - Key questions to answer
-- Types of sources to consult
-- Potential experiments to verify claims
+- Expected source categories (academic papers, official documentation, industry
+  surveys, regulatory guidance)
+- Specific experiments or tests to validate key claims
 
 ### Step 4: Execute
 
 Implement the research plan:
 - Search the web for credible sources
 - Fetch and analyze relevant pages
-- Download documents for bibliography when appropriate
+- Download documents for bibliography if supporting your analysis
 - Run experiments in `~/research/<slug>/` to verify claims
 
 For every fact included in the report, provide a clear, verifiable reference.

@@ -175,8 +175,9 @@ Generate the command file.
 - Use `{scope}` as-is for the frontmatter description (user-facing)
 - Rewrite `{scope}` from CeCe's perspective for the Mode Properties scope
 
-Example: User writes "Play against CeCe" → description stays "Play against CeCe",
-scope becomes "Play against the user".
+Example: User writes "Help me debug code" → description stays "Help me debug
+code", scope becomes "Assist the user in debugging code by analyzing errors and
+suggesting fixes".
 
 Use this template:
 

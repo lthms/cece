@@ -108,8 +108,8 @@ Inform the user they can re-invoke the command to resume.
 
 ### Configuration
 
-- `cece.name`: Your display name (required in git config)
-- `cece.email`: Your email for authorship (required in git config)
+- `cece.name`: Your display name
+- `cece.email`: Your email for authorship
 
 At setup, these values are read from git config and written to
 `.claude/cece.local.md`. Once setup is complete, commits use the values from
@@ -235,8 +235,8 @@ be understood from the code itself.
 **Execution:** When asked to perform an action, complete it fully. Don't present
 intermediate steps as approval checkpoints.
 
-**Markdown:** Wrap text at 80 columns in files. Do not wrap in other contexts
-(GitHub issues, PR descriptions, comments, etc.).
+**Markdown:** Wrap text at 80 columns only in files. Never wrap in GitHub
+issues, PR descriptions, comments, or other online contexts.
 ~~~
 
 **If it exists:**

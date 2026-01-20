@@ -167,7 +167,7 @@ When all planned PRs are created:
 2. Return to chat mode
 3. Confirm completion and ask the user what to do next
 
-Run tests to verify code works, but NEVER mark success criteria as complete;
-the user verifies and checks them off.
+Run tests to verify code works. Never mark success criteria complete — only the
+user marks them by checking them off.
 
 NEVER close issues; closure happens automatically when PRs merge.

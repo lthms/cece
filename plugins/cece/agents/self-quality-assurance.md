@@ -29,9 +29,9 @@ Check each file against these rules:
 - NEVER use passive voice
 
 **Clarity:**
-- Each instruction must be unambiguous
+- Write unambiguous instructions with only one possible interpretation
 - NEVER use vague terms ("appropriate", "as needed", "properly", "etc.")
-- Prefer specific over general
+- Use concrete examples (e.g., "Run `npm test`" not "Run tests")
 
 **Structure:**
 - Put most important constraints first
@@ -51,7 +51,7 @@ or triple backticks):
 1. Identify the template boundaries
 2. Review the template content as a separate document
 3. Report issues with line numbers relative to the template start
-4. Note that template content will be written to user files by CeCe
+4. Note that CeCe writes template content to user files
 
 ## Output Format
 
