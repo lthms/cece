@@ -108,8 +108,13 @@ Inform the user they can re-invoke the command to resume.
 
 ### Configuration
 
-- `cece.name`: Your display name (required)
-- `cece.email`: Your email for authorship (required)
+- `cece.name`: Your display name (required in git config)
+- `cece.email`: Your email for authorship (required in git config)
+
+At setup, these values are read from git config and written to
+`.claude/cece.local.md`. Once setup is complete, commits use the values from
+`.claude/cece.local.md`. At startup, the file is verified against git config
+and updated if git config has changed.
 
 ### Hard Constraints
 
@@ -125,12 +130,15 @@ Inform the user they can re-invoke the command to resume.
 
 ### Commit Identity
 
-Every commit uses your configured identity as author:
+Every commit uses the identity from `.claude/cece.local.md`:
 
 ```bash
-git commit --author="$(git config cece.name) <$(git config cece.email)>" \
-  -m "commit message"
+git commit --author="Name <Email>" -m "commit message"
 ```
+
+Read the `## Identity` section in `.claude/cece.local.md` for the Name and Email
+values. Substitute them into the `--author` flag (Name first, then Email in
+angle brackets).
 
 ### Branches
 
@@ -186,7 +194,14 @@ At startup, check whether `.claude/cece.local.md` exists in the project root.
 
 **If .claude/cece.local.md exists:**
 
-Read it, then proceed normally in chat mode.
+1. Read it and extract the `## Identity` section (Name and Email)
+2. Run `git config cece.name` and `git config cece.email`
+3. Compare values:
+   - If both git config values are present and differ from the file: update the
+     file's Identity section and inform the user: "Updated identity in
+     `.claude/cece.local.md` from git config."
+   - If git config values are missing or empty: keep the file values unchanged
+4. Proceed normally in chat mode
 
 **If .claude/cece.local.md does not exist:**
 
@@ -231,22 +246,27 @@ intermediate steps as approval checkpoints.
 Replace `~/.claude/rules/cece.md` with the template shown above (between the
 `~~~markdown` markers). This ensures the latest version is installed.
 
-## Step 3: Check git config
+## Step 3: Read git config identity
 
-Run these commands and verify each is set to a non-empty value:
+Run these commands to get identity values:
 
 ```bash
 git config cece.name
 git config cece.email
 ```
 
-If any are missing or empty:
+If either value is missing or empty:
 1. Alert the user
 2. Provide exact commands to set them:
    - `git config --global cece.name "CeCe"`
-   - `git config --global cece.email "<email>"`
+   - `git config --global cece.email "cece@example.com"`
+3. Wait for the user to confirm they've set the values, then re-read
+4. If values are still missing after re-read, stop and inform the user:
+   "Unable to read identity from git config. Verify the commands ran
+   successfully and try `/cece:setup` again."
 
-Proceed only after `cece.name` and `cece.email` are set.
+Store the values for use in Step 4. Substitute them into the `.claude/cece.local.md`
+template's `## Identity` section.
 
 ## Step 4: Check or create .claude/cece.local.md
 
@@ -274,10 +294,15 @@ Create `.claude/` directory if needed, then gather the following from the user:
 7. CLI tools and account for each (e.g., `gh: cece-bot`) — required if git
    strategy is "Fork"
 
-Generate `.claude/cece.local.md`:
+Generate `.claude/cece.local.md` using the identity values from Step 3:
 
 ```markdown
 # Project Configuration
+
+## Identity
+
+Name: <cece.name from git config>
+Email: <cece.email from git config>
 
 ## Git
 
@@ -313,12 +338,19 @@ PR template: <answer>
 **If it exists:**
 
 Read the file and check for:
+- `## Identity` section with Name and Email
 - `## Git` section with branch naming, commit style, and upstream
 - `## Git Strategy` section with strategy type (fork, remote, or custom)
 - `## Project Management` section with issue tracker
 - `## CLI Tools & Accounts` section
 
-For each missing section or incomplete value:
+For the Identity section:
+1. If missing or incomplete: add/fill it with values from git config (Step 3)
+2. If present and matches git config: proceed
+3. If present but differs from git config: update the file with git config values
+   (git config is authoritative when both values are present and non-empty)
+
+For each other missing section or incomplete value:
 1. List what is missing
 2. Gather the missing values from the user (present git strategy options as
    described above)
@@ -326,12 +358,11 @@ For each missing section or incomplete value:
 
 ## Step 5: User-level Claude Code settings
 
-Check and configure `~/.claude/settings.json` to allow CeCe identity commands.
+Configure Claude Code to allow CeCe to read its identity configuration at startup.
 
 **Required rules:**
 
-- `Bash(git config cece.*)`
-- `Bash(git config --get cece.*)`
+- `Bash(git config cece.:*)`
 
 **Procedure:**
 
@@ -340,8 +371,7 @@ Check and configure `~/.claude/settings.json` to allow CeCe identity commands.
    {
      "permissions": {
        "allow": [
-         "Bash(git config cece.*)",
-         "Bash(git config --get cece.*)"
+         "Bash(git config cece.:*)"
        ]
      }
    }
@@ -350,7 +380,7 @@ Check and configure `~/.claude/settings.json` to allow CeCe identity commands.
 2. If it exists, merge:
    - Parse JSON
    - Ensure `permissions.allow` array exists (create if missing)
-   - Add each required rule if not already present
+   - Add the required rule if not already present
    - Write back, preserving all other settings
 
 ## Step 6: Verify CLI tool authentication
