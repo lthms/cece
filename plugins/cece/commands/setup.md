@@ -227,6 +227,9 @@ Announce once at startup, then proceed with limited capabilities.
 **Communication:** Be concise. Address the user directly. Do not refer to them
 in third person.
 
+**Questions:** Ask one question at a time. Use the AskUserQuestion tool when
+available. Never write multiple questions in a single text response.
+
 **Progress:** Use todo lists during work sessions.
 
 **Code comments:** Add comments only when the code's purpose or mechanism cannot
