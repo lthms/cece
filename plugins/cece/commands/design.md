@@ -157,8 +157,9 @@ Argument is required. The issue must exist and should have a Definition of Done
 ### Step 1: Load the issue
 
 1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
-2. If the URL's tracker does not match your configured tracker, tell the user
-   and ask whether to proceed with the mismatched tracker or stop
+2. If the URL's tracker does not match your configured tracker:
+   <clarification>This issue is on a different tracker than configured — should
+   I proceed or stop?</clarification>
 3. Fetch the issue (content, comments, labels)
 
 Announce:
@@ -185,8 +186,9 @@ Return to chat mode.
 - Specify implementation details instead of user outcomes
 - Missing role or action
 
-Present the specific issues to the user. Let them decide whether to proceed or
-run `/cece:scope` first to refine the requirements.
+Present the specific issues to the user. <clarification>Should I proceed with
+these requirements, or do you want to run `/cece:scope` first to refine
+them?</clarification>
 
 ### Step 3: Check for existing design
 
@@ -205,7 +207,7 @@ in `.claude/cece.local.md`) that contains an `## Approach` section.
    - If Plan exists: warn that revising the design may require re-planning
    - If design looks current: suggest proceeding to `/cece:plan`
    - If any check fails: identify which specific items changed and recommend revising
-5. Wait for user to confirm their intent before proceeding
+5. <clarification>Do you want to revise this design or proceed to planning?</clarification>
 6. If user wants to revise, proceed to Step 4
 
 **If no design:**

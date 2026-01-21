@@ -97,15 +97,16 @@ technical mechanism.
 **If argument provided:**
 
 1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
-2. If the URL's tracker does not match your configured tracker, tell the user
-   and ask whether to proceed with the mismatched tracker or stop
+2. If the URL's tracker does not match your configured tracker:
+   <clarification>This issue is on a different tracker than configured — should
+   I proceed or stop?</clarification>
 3. Fetch the issue (content, comments, labels)
 4. Proceed to Step 2
 
 **If no argument:**
 
-1. Ask the user to describe the task
-2. Ask questions until the task is clear
+1. <clarification>Describe the task you want to work on.</clarification>
+2. Ask clarifying questions until the task is clear
 3. Proceed to Step 3 (draft first, create issue after sign-off)
 
 Announce:
@@ -127,8 +128,9 @@ Announce:
    - Each item includes a "so that" clause stating user value (not mechanism)
    - No items are checked off
 5. Present your assessment to the user
-6. If Goal and Definition of Done are both present and well-formed, suggest
-   proceeding to `/cece:design`
+6. If Goal and Definition of Done are both present and well-formed:
+   <clarification>This issue looks ready. Should I proceed to `/cece:design`, or
+   do you want to refine it first?</clarification>
 7. If refinement is needed, proceed to Step 3
 
 ### Step 3: Draft issue content

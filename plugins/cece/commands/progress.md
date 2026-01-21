@@ -124,8 +124,9 @@ Argument is required. The issue must have:
 ### Step 1: Load context
 
 1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
-2. If the URL's tracker does not match your configured tracker, tell the user
-   and ask whether to proceed with the mismatched tracker or stop
+2. If the URL's tracker does not match your configured tracker:
+   <clarification>This issue is on a different tracker than configured — should
+   I proceed or stop?</clarification>
 3. Fetch the issue (content, comments, labels, linked PRs)
 4. Read the Definition of Done section from the issue description
 5. Find the Design comment posted by your configured account (from `## Identity`

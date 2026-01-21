@@ -96,8 +96,9 @@ Argument is required. The issue must have:
 ### Step 1: Load the issue
 
 1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
-2. If the URL's tracker does not match your configured tracker, tell the user
-   and ask whether to proceed with the mismatched tracker or stop
+2. If the URL's tracker does not match your configured tracker:
+   <clarification>This issue is on a different tracker than configured — should
+   I proceed or stop?</clarification>
 3. Fetch the issue (content, comments, labels, linked PRs)
 
 Announce:
@@ -172,8 +173,8 @@ user approval for "User approved: no tests". If you cannot identify a test
 approach, raise this as a blocker before finalizing the plan.
 
 **If the Approach is infeasible** — constraints make the design impossible to
-implement — present these constraints to the user. Ask the user to run
-`/cece:design` to revise the approach before you finalize the plan.
+implement — <blocker>The approach cannot be implemented due to these
+constraints. Run `/cece:design` to revise the approach before planning.</blocker>
 
 ### Step 5: Sign-off
 
