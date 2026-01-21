@@ -14,10 +14,15 @@ plugins/cece/
 
 The core files:
 - `commands/setup.md` — Onboarding wizard, includes the cece.md template
-- `commands/autonomous.md` — Issue-driven autonomous mode
+- `commands/plan.md` — Collaborative planning for issues
+- `commands/progress.md` — Execute work on an issue with an existing plan
 - `commands/research.md` — Research mode for exploring subjects
 - `commands/wizard.md` — Creates new commands interactively
 - `agents/self-quality-assurance.md` — Reviews CeCe-managed files for quality
+
+**Deprecated:**
+- `commands/autonomous.md` — Deprecated in favor of `plan.md` + `progress.md`.
+  Do not reference or modify this file when making changes to the codebase.
 
 ## Key Rules
 
