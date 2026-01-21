@@ -58,7 +58,7 @@ Send `stop` to interrupt and return to chat mode.
 For issue-driven work with structured planning:
 
 ```
-/cece:plan [issue-ref]
+/cece:plan <issue-ref>
 /cece:progress <issue-ref>
 ```
 
@@ -74,6 +74,9 @@ This two-phase workflow separates planning from execution, giving you control
 over the approach before CeCe starts implementing.
 
 Send `stop` to interrupt either mode and return to chat mode.
+
+> **Note:** The previous `/cece:autonomous` command is deprecated. Use
+> `/cece:plan` followed by `/cece:progress` instead.
 
 ### Quick Fix
 
