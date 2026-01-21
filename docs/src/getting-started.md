@@ -4,10 +4,16 @@ This guide walks you through installing CeCe and running your first commands.
 
 ## Installation
 
-Install CeCe through Claude Code's plugin system:
+First, add the CeCe marketplace:
 
 ```
-claude plugins:install cece
+/plugin marketplace add lthms/cece
+```
+
+Then install the plugin:
+
+```
+/plugin install cece
 ```
 
 ## Setup
