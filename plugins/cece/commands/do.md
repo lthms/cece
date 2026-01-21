@@ -2,6 +2,12 @@
 description: Execute a task autonomously without intermediate checkpoints
 ---
 
+<policy>
+  clarification: continue
+  approval: continue
+  blocker: revert
+</policy>
+
 # Do Mode
 
 ## Mode Properties
@@ -57,7 +63,7 @@ When blocked:
 
 1. Determine if the blocker is resolvable without user input
 2. If resolvable: fix it and continue
-3. If not resolvable: stop, explain the blocker, ask the user how to proceed
+3. If not resolvable: <blocker>Cannot complete the task as described — what prevents completion and how should I proceed?</blocker>
 
 ### Step 4: Complete
 

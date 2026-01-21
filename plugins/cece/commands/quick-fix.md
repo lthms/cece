@@ -2,6 +2,12 @@
 description: Address trivial PR review comments (typos, formatting, naming)
 ---
 
+<policy>
+  clarification: stop
+  approval: continue
+  blocker: stop
+</policy>
+
 # Quick Fix
 
 ## Mode Properties
@@ -66,7 +72,7 @@ Announce:
 
 1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
 2. Use the platform CLI (`gh` for GitHub, `glab` for GitLab) to fetch the PR diff, changed files, and all review comments
-3. If the PR cannot be found, announce the error and exit
+3. If the PR cannot be found: <blocker>Cannot find the specified PR — is the reference correct?</blocker>
 4. Identify unresolved review threads
 
 If all threads are resolved, announce and exit:

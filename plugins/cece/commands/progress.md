@@ -2,6 +2,12 @@
 description: Execute work on an issue with an existing plan
 ---
 
+<policy>
+  clarification: ask
+  approval: continue
+  blocker: ask
+</policy>
+
 # Progress Mode
 
 ## Mode Properties
@@ -196,9 +202,9 @@ Work through each planned PR:
 
 When PR reviews come in, evaluate each comment:
 
-1. Does it change what "done" means? → Ask user before implementing
-2. Would it violate an Architectural Decision? → Raise blocker, ask user before implementing
-3. Does it add work beyond the planned scope? → Ask user before implementing
+1. Does it change what "done" means? → <clarification>This review feedback changes the Definition of Done — should I implement it?</clarification>
+2. Would it violate an Architectural Decision? → <blocker>This review feedback conflicts with an Architectural Decision — how should I proceed?</blocker>
+3. Does it add work beyond the planned scope? → <clarification>This review feedback adds work beyond the planned scope — should I implement it?</clarification>
 4. Otherwise → Implement the change
 
 NEVER decline review feedback without user approval. If you believe a comment
@@ -229,7 +235,7 @@ raise it as a blocker. Partial solutions require explicit user approval.
 When blocked:
 
 1. Post blocker as comment (on PR if exists, otherwise on issue)
-2. Ask user for clarification in conversation
+2. <blocker>Cannot implement the requirement as specified — what constraint prevents completion and how should I proceed?</blocker>
 3. Present options when possible
 4. Once user approves an option, continue
 5. If the decision should be recorded, tell the user to run `/cece:design` to
