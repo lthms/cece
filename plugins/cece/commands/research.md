@@ -65,6 +65,8 @@ Create a fresh `~/research/<slug>/` workspace directory.
 
 ### Step 2: Clarify
 
+<clarification>What specific aspects of this subject should I focus on?</clarification>
+
 Conduct a clarification session with the user to remove ambiguity from the
 research task.
 

@@ -240,7 +240,7 @@ the user is satisfied with the approach.
 
 ### Step 6: Sign-off
 
-1. Ask for explicit sign-off on the design
+1. <approval>Ready to post this design to the issue?</approval>
 2. Wait for user approval before posting
 
 Do NOT post the Design comment until the user approves.

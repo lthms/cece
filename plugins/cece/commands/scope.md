@@ -140,7 +140,7 @@ Announce:
 
 ### Step 4: Sign-off
 
-1. Ask for explicit sign-off on the issue content
+1. <approval>Ready to create/update this issue?</approval>
 2. Wait for user approval before posting
 
 Do NOT create or update the issue until the user approves.

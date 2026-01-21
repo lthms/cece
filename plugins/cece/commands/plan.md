@@ -163,8 +163,8 @@ Look for a Plan comment posted by your configured account that contains a
    - Task: one sentence stating what the code will do when completed
    - Test plan: specific test commands to run, or manual verification steps
    - Planned PRs: breakdown of work into reviewable units
-4. Present plan to the user in conversation
-5. Iterate based on feedback until user is satisfied
+5. Present plan to the user in conversation
+6. Iterate based on feedback until user is satisfied
 
 **Test plan is mandatory.** NEVER proceed without specifying either: (a) test
 commands with expected outcomes, (b) manual verification steps, or (c) explicit
@@ -177,7 +177,7 @@ implement — present these constraints to the user. Ask the user to run
 
 ### Step 5: Sign-off
 
-1. Ask for explicit sign-off on the plan
+1. <approval>Ready to post this plan to the issue?</approval>
 2. Wait for user approval before posting
 
 Do NOT post the Plan comment until the user approves.
