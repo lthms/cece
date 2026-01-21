@@ -1,0 +1,10 @@
+[book]
+title = "CeCe Documentation"
+authors = ["CeCe Contributors"]
+language = "en"
+
+[build]
+build-dir = "book"
+
+[output.html]
+git-repository-url = "https://github.com/lthms/cece"
