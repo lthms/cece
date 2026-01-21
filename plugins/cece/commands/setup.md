@@ -165,6 +165,15 @@ When you encounter an inline tag:
    - **stop**: Save progress to the command's storage, return to chat mode,
      inform the user how to resume
 
+#### Non-Interactive Mode
+
+When running in non-interactive mode (`claude -p`), there is no user to respond
+to prompts.
+
+If the resolved action for an interaction is `ask`, treat it as `revert` instead:
+undo uncommitted work from this session, exit, and report the interaction that
+caused the revert.
+
 ---
 
 ## Git Rules
