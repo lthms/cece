@@ -63,8 +63,8 @@ For issue-driven work with structured planning:
 ```
 
 **Plan mode** (📋) helps you collaboratively design an implementation approach
-before writing code. CeCe explores the codebase, drafts a work plan with success
-criteria, and posts it to the issue after you approve.
+before writing code. CeCe explores the codebase, drafts a work plan, adds success
+criteria to the issue description, and posts the plan after you approve.
 
 **Progress mode** (🔥) executes the plan independently, creating branches and
 PRs per your configured git strategy. It tracks progress on the issue and

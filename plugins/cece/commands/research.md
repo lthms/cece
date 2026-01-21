@@ -10,7 +10,7 @@ description: Explore the state of the art of a subject and produce a report
 |----------|-------|
 | Indicator | 🔬 |
 | Arguments | `<subject \| path> [prompt]` — a subject to research, or path to report in `~/research/` with optional guidance prompt |
-| Exit | Report iteration complete |
+| Exit | Report iteration complete, or user sends `stop` |
 | Scope | Explore the state of the art of a subject and produce a research report |
 | Persistence | File (`~/research/<slug>.md`) |
 | Resumption | Provide path to existing report, optionally followed by a prompt to guide the next iteration |

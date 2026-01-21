@@ -12,7 +12,7 @@ description: Plan work on an issue collaboratively before execution
 | Arguments | `[issue-ref]` — issue number or URL |
 | Exit | Plan posted to issue, or user sends `stop` |
 | Scope | Collaborative planning for a task |
-| Persistence | Plan comment + Q&A section on the issue |
+| Persistence | Plan comment + Success Criteria + Q&A in issue description |
 | Resumption | Re-invoke with same issue-ref to revise plan |
 
 ## Permissions
@@ -32,13 +32,27 @@ description: Plan work on an issue collaboratively before execution
 
 ## Artifacts
 
-### Plan
+### Success Criteria
+
+A `## Success Criteria` section in the issue description. These are the
+requirements that define "done" for this issue.
+
+**NEVER** check off success criteria boxes. Only the user marks criteria complete.
+
+**Format:**
+```markdown
+## Success Criteria
+
+- [ ] Criterion 1
+- [ ] Criterion 2
+```
+
+### Work Plan
 
 A comment on the issue with the `## Work Plan` heading.
 
 **Required sections:**
 - Task summary (one sentence)
-- Success criteria (checkboxes)
 - Approach (high-level strategy)
 - Test plan (how changes will be validated)
 - Planned PRs (checkboxes with scope descriptions)
@@ -48,10 +62,6 @@ A comment on the issue with the `## Work Plan` heading.
 ## Work Plan
 
 **Task**: <summary>
-
-**Success criteria**:
-- [ ] Criterion 1
-- [ ] Criterion 2
 
 **Approach**: <strategy>
 
@@ -98,7 +108,7 @@ Example:
 
 **If argument provided:**
 
-1. Read `## Project Management` in `cece.local.md` to determine the platform
+1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
 2. If the URL's tracker does not match your configured tracker, tell the user
    and request confirmation before proceeding
 3. Fetch the issue (content, comments, labels, linked PRs)
@@ -161,9 +171,10 @@ Do NOT post the Plan to the issue until the user approves.
 After sign-off:
 
 1. Post the Plan as a comment on the issue
-2. Create or update the Q&A section in the issue description with the decisions
+2. Create or update the Success Criteria section in the issue description
+3. Create or update the Q&A section in the issue description with the decisions
    you made during planning
-3. Return to chat mode
+4. Return to chat mode
 
 Announce:
 

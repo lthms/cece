@@ -10,7 +10,7 @@ description: Address trivial PR review comments (typos, formatting, naming)
 |----------|-------|
 | Indicator | 🪄 |
 | Arguments | `<pr-ref>` — PR number or URL |
-| Exit | All comments classified and trivial ones addressed |
+| Exit | All comments classified and trivial ones addressed, or user sends `stop` |
 | Scope | Address only trivial review comments; defer everything else |
 | Persistence | None |
 | Resumption | Re-invoke with same PR reference |

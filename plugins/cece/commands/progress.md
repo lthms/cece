@@ -12,7 +12,7 @@ description: Execute work on an issue with an existing plan
 | Arguments | `<issue-ref>` — issue number or URL (required) |
 | Exit | Task completion, or user sends `stop` |
 | Scope | Execute planned work independently |
-| Persistence | Updates Plan comment + Q&A section on the issue |
+| Persistence | Updates Plan comment + Q&A in issue description |
 | Resumption | Re-invoke with same issue-ref |
 
 ## Principles
@@ -38,7 +38,7 @@ Execute freely without asking for approval once work begins.
 - Run tests
 - Create branches (per naming convention)
 - Commit to your branches
-- Push per `## Git Strategy` in `cece.local.md`
+- Push per `## Git Strategy` in `.claude/cece.local.md`
 - Create/update PRs
 - Post issue comments
 
@@ -52,13 +52,19 @@ Execute freely without asking for approval once work begins.
 
 ## Artifacts
 
-### Plan
+### Success Criteria
+
+A `## Success Criteria` section in the issue description. Created by
+`/cece:plan`. These define what "done" means.
+
+**NEVER** check off success criteria boxes. Only the user marks criteria complete.
+
+### Work Plan
 
 A comment on the issue with the `## Work Plan` heading. Created by `/cece:plan`.
 
 **Update when:**
 - PR is completed (check it off, add link)
-- Success criteria change
 - Scope changes
 
 ### Q&A
@@ -100,11 +106,12 @@ Posted on the issue or PRs during execution.
 Argument is required. The issue must have an existing Plan (created by
 `/cece:plan`).
 
-### Step 1: Load plan
+### Step 1: Load context
 
-1. Read `## Project Management` in `cece.local.md` to determine the platform
+1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
 2. Fetch the issue (content, comments, labels, linked PRs)
-3. Find the Plan comment posted by your account
+3. Read the Success Criteria section from the issue description
+4. Find the Plan comment posted by your account
 
 **If no plan exists:**
 
@@ -117,8 +124,10 @@ Return to chat mode.
 ### Step 2: Validate and resume
 
 1. Read the Q&A section from the issue description
-2. Validate plan completeness; if incomplete, ask user whether to run
-   `/cece:plan` to update it before proceeding
+2. Validate completeness:
+   - Success Criteria section exists in issue description
+   - Plan comment has task, approach, test plan, and planned PRs
+   - If anything is missing, ask user whether to run `/cece:plan` first
 3. Parse current state: which PRs are done, pending, any blockers
 4. Check open PRs for unaddressed reviews
 5. Present summary to user: what's planned, done, remaining, pending reviews
@@ -135,15 +144,15 @@ Announce:
 
 **Before any implementation:**
 
-1. Extract every success criterion from the Plan
+1. Extract every success criterion from the issue description
 2. Create a todo item for each criterion
 3. These todos track requirement coverage — mark each complete only after the
    code is committed and tests pass
 
 Work through each planned PR:
 
-1. **Branch**: Create or checkout branch per naming convention in `cece.local.md`
-2. **Git setup**: Read `## Git Strategy` from `cece.local.md` and prepare
+1. **Branch**: Create or checkout branch per naming convention in `.claude/cece.local.md`
+2. **Git setup**: Read `## Git Strategy` from `.claude/cece.local.md` and prepare
 3. **Implement**: Write code, commit freely
 4. **Test**: Execute the test plan. If tests fail, fix before proceeding. If
    test plan cannot be executed, raise as blocker — do not skip.
@@ -199,20 +208,20 @@ When blocked:
 
 When all planned PRs are created:
 
-1. **Pre-check**: Re-fetch the Plan from the issue. For each success criterion,
-   identify which code and tests cover it. If you cannot point to concrete
-   implementation and passing tests, the criterion is not met — raise a blocker
-   before proceeding.
-2. Verify all PRs are checked off in Plan
+1. **Pre-check**: Re-fetch the Success Criteria from the issue description. For
+   each criterion, identify which code and tests cover it. If you cannot point
+   to concrete implementation and passing tests, the criterion is not met —
+   raise a blocker before proceeding.
+2. Verify all PRs are checked off in the Plan comment
 3. Execute the test plan to verify all changes work
-5. **Review each success criterion:**
+4. **Review each success criterion:**
    - Confirm the implementation meets the requirement exactly
    - If any criterion is not fully satisfied, raise a blocker
    - NEVER declare completion with unmet requirements
-6. Return to chat mode
-7. Present final summary: what was delivered, how each success criterion was met
-8. Ask user what to do next
+5. Return to chat mode
+6. Present final summary: what was delivered, how each success criterion was met
+7. Ask user what to do next
 
-Never mark success criteria complete — only the user does that.
+**NEVER** mark success criteria checkboxes complete — only the user does that.
 
 NEVER close issues; closure happens automatically when PRs merge.
