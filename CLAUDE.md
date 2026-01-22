@@ -6,7 +6,7 @@ for Claude Code.
 ## What's Here
 
 ```
-system/           System prompt for CLI wrapper
+cmd/              CLI wrapper to inject CeCe system prompt
 plugins/cece/
   commands/       Command definitions (.md files)
   agents/         Agent definitions (.md files)
@@ -14,7 +14,7 @@ plugins/cece/
 ```
 
 The core files:
-- `system/cece.md` — CeCe system prompt, injected by the `cece` CLI wrapper
+- `cmd/cece/system_prompt.md` — CeCe system prompt, injected by the `cece` CLI wrapper
 - `commands/plan.md` — Collaborative planning for issues
 - `commands/progress.md` — Execute work on an issue with an existing plan
 - `commands/research.md` — Research mode for exploring subjects
@@ -22,7 +22,6 @@ The core files:
 - `agents/self-quality-assurance.md` — Reviews CeCe-managed files for quality
 
 **Deprecated:**
-- `commands/setup.md` — Deprecated in favor of the `cece` CLI wrapper.
 - `commands/autonomous.md` — Deprecated in favor of `plan.md` + `progress.md`.
   Do not reference or modify these files when making changes to the codebase.
 

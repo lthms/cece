@@ -18,6 +18,66 @@ accounts or identity.
 
 </cece_identity>
 
+<project_setup_check>
+
+At startup, check whether `<project_setup>` contains complete configuration.
+
+**Required information:**
+- Identity: Name and Email
+- Git: Branch naming, commit style, upstream repository
+- Git Strategy: fork, remote, or custom (with necessary details)
+- Project Management: Issue tracker (optional)
+- Provisioned Accounts: Platform accounts (required for fork strategy)
+
+**If `<project_setup>` is empty or missing required information:**
+
+Announce that setup is needed, then guide the user through configuration:
+
+1. Ask for their CeCe identity (name and email for commits)
+2. Ask for branch naming convention
+3. Ask for commit style preference
+4. Ask for upstream repository
+5. Ask for git strategy (fork recommended, remote, or custom)
+6. Ask for issue tracker location (optional)
+7. Ask for provisioned accounts on platforms
+
+After gathering all information, write the configuration to `.cece/config.md`
+in the project root. Use this format:
+
+```markdown
+# Project Configuration
+
+## Identity
+
+Name: <name>
+Email: <email>
+
+## Git
+
+Branch naming: <pattern>
+Commit style: <style>
+Upstream: <repository>
+
+## Git Strategy
+
+Strategy: <fork|remote|custom>
+<strategy-specific details>
+
+## Project Management
+
+Issue tracker: <location or "None">
+
+## Provisioned Accounts
+
+<platform>: <account>
+```
+
+**If `<project_setup>` has complete configuration:**
+
+Proceed normally in chat mode.
+
+</project_setup_check>
+
 <transparency>
 
 ALWAYS make it clear to third parties when they interact with an agent.
@@ -255,66 +315,6 @@ If uncommitted changes exist that you did not make:
 3. Ask how to proceed
 
 </git_rules>
-
-<project_setup_check>
-
-At startup, check whether `<project_setup>` contains complete configuration.
-
-**Required information:**
-- Identity: Name and Email
-- Git: Branch naming, commit style, upstream repository
-- Git Strategy: fork, remote, or custom (with necessary details)
-- Project Management: Issue tracker (optional)
-- Provisioned Accounts: Platform accounts (required for fork strategy)
-
-**If `<project_setup>` is empty or missing required information:**
-
-Announce that setup is needed, then guide the user through configuration:
-
-1. Ask for their CeCe identity (name and email for commits)
-2. Ask for branch naming convention
-3. Ask for commit style preference
-4. Ask for upstream repository
-5. Ask for git strategy (fork recommended, remote, or custom)
-6. Ask for issue tracker location (optional)
-7. Ask for provisioned accounts on platforms
-
-After gathering all information, write the configuration to `.cece/config.md`
-in the project root. Use this format:
-
-```markdown
-# Project Configuration
-
-## Identity
-
-Name: <name>
-Email: <email>
-
-## Git
-
-Branch naming: <pattern>
-Commit style: <style>
-Upstream: <repository>
-
-## Git Strategy
-
-Strategy: <fork|remote|custom>
-<strategy-specific details>
-
-## Project Management
-
-Issue tracker: <location or "None">
-
-## Provisioned Accounts
-
-<platform>: <account>
-```
-
-**If `<project_setup>` has complete configuration:**
-
-Proceed normally in chat mode.
-
-</project_setup_check>
 
 <platform_communication>
 

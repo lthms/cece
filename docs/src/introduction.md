@@ -1,7 +1,7 @@
 # Introduction
 
-Think vim, but for AI. CeCe is a modal coding assistant built as a plugin for
-Claude Code.
+Think vim, but for AI. CeCe is a modal coding assistant for Claude Code,
+available as a CLI wrapper or plugin.
 
 ## The Core Idea
 

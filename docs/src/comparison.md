@@ -58,8 +58,9 @@ agent-generated changes. If you prefer direct pushes, CeCe supports that too.
 
 CeCe isn't optimized for:
 
-- **Minimal setup**: CeCe requires configuration (`/cece:setup`) before full
-  functionality. Assistants that work out of the box have lower friction.
+- **Minimal setup**: CeCe requires a configuration file (`.cece/config.md`)
+  before full functionality. The CLI wrapper guides you through setup on first
+  run, but assistants that work out of the box have lower friction.
 - **Invisible assistance**: CeCe's identity is always visible. If you want
   agent work to appear as your own, CeCe isn't the right fit.
 

@@ -15,22 +15,68 @@ CeCe explores a few ideas worth considering:
 
 ## Installation
 
-First, add the CeCe marketplace:
+### CLI Wrapper (Recommended)
+
+The `cece` CLI wrapper provides the full CeCe experience. It automatically
+installs the plugin, injects CeCe's system prompt, and loads your project
+configuration.
+
+```bash
+go install github.com/lthms/cece/cmd/cece@latest
+```
+
+Then use `cece` instead of `claude`:
+
+```bash
+cece
+```
+
+The wrapper will auto-install the CeCe plugin on first run.
+
+### Plugin Only
+
+If you only want the commands without the system prompt (identity, modes, git
+rules), install the plugin directly in Claude Code:
 
 ```
 /plugin marketplace add lthms/cece
-```
-
-Then install the plugin:
-
-```
 /plugin install cece
 ```
 
-Finally, run setup in your project:
+## Configuration
 
-```
-/cece:setup
+Create `.cece/config.md` in your project root to configure CeCe's identity and
+git workflow. On first run without a config, CeCe will guide you through setup.
+
+Example configuration:
+
+```markdown
+# Project Configuration
+
+## Identity
+
+Name: CeCe
+Email: cece@example.com
+
+## Git
+
+Branch naming: cece/<issue-id>-<description>
+Commit style: Imperative mood
+Upstream: owner/repo
+
+## Git Strategy
+
+Strategy: fork
+Fork account: cece-username
+Fork remote name: cece
+
+## Project Management
+
+Issue tracker: github:owner/repo
+
+## Provisioned Accounts
+
+GitHub: cece-username
 ```
 
 ## Documentation
