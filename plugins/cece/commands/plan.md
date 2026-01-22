@@ -18,8 +18,22 @@ description: Plan work on an issue with concrete PRs and test strategy
 | Arguments | `<issue-ref>` — issue number or URL (required) |
 | Exit | Plan comment posted, or user sends `stop` |
 | Scope | Create concrete execution plan with test strategy |
-| Persistence | Plan comment (Task + Test plan + Planned PRs) |
+| Persistence | Plan file + Plan comment (Task + Test plan + Planned PRs) |
 | Resumption | Re-invoke with same issue-ref to revise plan |
+
+## How Plan Mode Works
+
+This command uses Claude's native planning features for safe, reviewable planning.
+
+**What happens:**
+
+1. You explore the codebase using read-only tools
+2. You draft the plan to a file the user can review and edit
+3. You request approval before posting
+4. Once approved, the plan is posted to the issue
+
+This gives the user complete control: they see the full plan before it affects
+the issue tracker.
 
 ## Permissions
 
@@ -141,73 +155,83 @@ Return to chat mode.
 
 Return to chat mode.
 
-### Step 3: Check for existing plan
+### Step 3: Enter plan mode
+
+Use `EnterPlanMode` to enter read-only planning mode. During planning, explore
+the codebase using Read, Glob, Grep, and Task tools only. Do not create branches,
+write code, or create commits.
+
+### Step 4: Check for existing plan
 
 Look for a Plan comment posted by your configured account that contains a
 `## Plan` heading.
 
 **If plan exists:**
 
-1. Read all comments on the issue (including review feedback, blockers, updates)
+1. Read all comments on the issue (including review feedback and blockers)
 2. Check for linked PRs — if any exist, work has already started
-3. Analyze whether the plan needs revision:
-   - Has the Design been updated since the plan was created?
-   - Are there unresolved blockers?
-   - Has feedback suggested scope changes?
-   - Is the test plan still valid?
+3. Analyze whether the plan needs revision. Check:
+   - Whether the Design comment was edited since the plan was posted (compare
+     timestamps or content)
+   - Whether there are unresolved comments on linked PRs indicating blockers
+   - Whether scope changed based on feedback (new Definition of Done items or
+     modified existing items)
+   - Whether the tests specified in the plan still work with the current codebase
 4. Present the existing plan to the user with your assessment:
-   - If PRs exist: warn that revising the plan may require rework on existing PRs
-   - If all checks pass (no design changes, no blockers, no scope changes, test plan valid): suggest proceeding to `/cece:progress`
-   - If any check fails: identify which specific items changed and recommend revising
-5. Wait for user to confirm their intent before proceeding
-6. If user wants to revise, proceed to Step 4
+   - If PRs exist: tell the user that revising the plan may require rework on
+     existing PRs
+   - If all checks pass: suggest proceeding to `/cece:progress`
+   - If any check fails: identify which specific items changed and recommend
+     revising
+5. Wait for user confirmation before proceeding
+6. If user wants to revise, proceed to Step 5
 
 **If no plan:**
-- Proceed to Step 4
+- Proceed to Step 5
 
-### Step 4: Draft plan
+### Step 5: Draft plan
 
 1. Review the Approach and Architectural Decisions from the Design comment
 2. Map Definition of Done items to concrete PRs
-3. Verify planned PRs respect Architectural Decisions — if a PR would violate one,
-   raise this with the user before finalizing the plan
+3. For each planned PR, check if implementing it would require violating an
+   Architectural Decision from the Design comment. If so, raise a blocker:
+   "PR N would violate Architectural Decision X — revise the plan or design?"
 4. Identify dependencies between PRs — if a PR builds on changes from another,
    mark it with `(depends on PR N)`
-5. Draft the Plan comment:
+5. Write the plan to the plan file:
    - Task: one sentence stating what the code will do when completed
    - Test plan: specific test commands to run, or manual verification steps
    - Planned PRs: breakdown of work into reviewable units, with dependencies noted
-6. Present plan to the user in conversation
-7. Iterate based on feedback until user is satisfied
 
-**Test plan is mandatory.** NEVER proceed without specifying either: (a) test
-commands with expected outcomes, (b) manual verification steps, or (c) explicit
-user approval for "User approved: no tests". If you cannot identify a test
-approach, raise this as a blocker before finalizing the plan.
+**Test plan is mandatory.** Specify either: (a) test commands with expected
+outcomes, (b) manual verification steps, or (c) the literal phrase
+`User approved: no tests` if testing is waived. If you cannot identify a test
+approach, raise this as a blocker.
 
 **If the Approach is infeasible** — constraints make the design impossible to
 implement — <blocker>The approach cannot be implemented due to these
 constraints. Run `/cece:design` to revise the approach before planning.</blocker>
 
-### Step 5: Sign-off
+### Step 6: Exit plan mode and get approval
 
-1. <approval>Ready to post this plan to the issue?</approval>
-2. Wait for user approval before posting
+1. Use `ExitPlanMode` to signal the plan is complete
+2. This triggers Claude's native approval flow — the user reviews the plan file
+3. Wait for user approval before proceeding
 
 Do NOT post the Plan comment until the user approves.
 
-### Step 6: Post to issue and exit
+### Step 7: Post to issue and exit
 
-After sign-off:
+After approval:
 
 **If creating a new plan:**
 
-1. Post the Plan comment on the issue
+1. Post the Plan comment on the issue (using the content from the plan file)
 
 **If updating an existing plan:**
 
 1. Edit the existing Plan comment with the revised content
-2. Optionally post a brief comment noting what changed (if changes are significant)
+2. If changes are significant, post a comment explaining what changed
 
 Return to chat mode.
 
