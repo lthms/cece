@@ -187,19 +187,24 @@ Work through each planned PR:
 2. **Git setup**: Read `## Git Strategy` from `.claude/cece.local.md` and prepare
 3. **Upstream info**: Spawn the `git-upstream-info` agent. It returns `upstream_remote`
    and `default_branch`. Use these values in steps 4, 8, and when creating PRs.
-   If the agent returns an error, raise a <blocker>Could not determine upstream
-   info — [agent error message]</blocker>
+   If the agent returns an error, raise a <blocker>I couldn't determine the
+   target of the PR — [agent error message]</blocker>
 4. **Freshness check** (existing branches only, skip for new branches):
-   a. Fetch the upstream default branch: `git fetch <upstream_remote> <default_branch>`
-   b. Check if branch includes all upstream changes:
-      `git merge-base --is-ancestor <upstream_remote>/<default_branch> HEAD`
-   c. If exit code is 0: branch includes all upstream commits — proceed to step 5
-   d. If exit code is 1: branch is behind or diverged — rebase onto the default branch:
-      - Run `git rebase <upstream_remote>/<default_branch>`
+   a. Determine the base ref for this PR:
+      - If this PR has a dependency (marked with `(depends on PR N)` in the Plan),
+        check if the base PR is merged. If merged, use `<upstream_remote>/<default_branch>`.
+        If not merged, use the base PR's branch.
+      - If this PR has no dependency, use `<upstream_remote>/<default_branch>`.
+   b. Fetch the base ref: `git fetch <upstream_remote> <ref>`
+   c. Check if branch includes all base ref changes:
+      `git merge-base --is-ancestor <base-ref> HEAD`
+   d. If exit code is 0: branch is up to date — proceed to step 5
+   e. If exit code is 1: branch is behind or diverged — rebase onto the base ref:
+      - Run `git rebase <base-ref>`
       - If conflicts occur: edit affected files to resolve, then run
         `git rebase --continue`. If conflicts persist after retry, run
         `git rebase --abort` and raise a <blocker>Rebase conflict when syncing
-        branch with default branch — which files conflict and how should I
+        branch with base — which files conflict and how should I
         resolve?</blocker>
       - Force-push the rebased branch per `## Git Strategy` in `.claude/cece.local.md`
 5. **Implement**: Write code to implement the planned PR, committing as you progress
