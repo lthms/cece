@@ -82,8 +82,13 @@ owned by `/cece:plan`.
 
 **Planned PRs**:
 - [ ] PR 1: <scope>
-- [ ] PR 2: <scope>
+- [ ] PR 2: <scope> (depends on PR 1)
 ```
+
+**Dependencies:** When a PR depends on another, add `(depends on PR N)` at the
+end of its line, where N is the PR number in the planned list (1, 2, 3, etc.).
+This syntax is case-sensitive. When `/cece:progress` pushes changes to a base
+branch, it parses this syntax to identify and auto-rebase dependent branches.
 
 ---
 
@@ -166,12 +171,14 @@ Look for a Plan comment posted by your configured account that contains a
 2. Map Definition of Done items to concrete PRs
 3. Verify planned PRs respect Architectural Decisions — if a PR would violate one,
    raise this with the user before finalizing the plan
-4. Draft the Plan comment:
+4. Identify dependencies between PRs — if a PR builds on changes from another,
+   mark it with `(depends on PR N)`
+5. Draft the Plan comment:
    - Task: one sentence stating what the code will do when completed
    - Test plan: specific test commands to run, or manual verification steps
-   - Planned PRs: breakdown of work into reviewable units
-5. Present plan to the user in conversation
-6. Iterate based on feedback until user is satisfied
+   - Planned PRs: breakdown of work into reviewable units, with dependencies noted
+6. Present plan to the user in conversation
+7. Iterate based on feedback until user is satisfied
 
 **Test plan is mandatory.** NEVER proceed without specifying either: (a) test
 commands with expected outcomes, (b) manual verification steps, or (c) explicit
