@@ -183,12 +183,14 @@ Return to chat mode.
 
 Work through each planned PR:
 
-1. **Branch**: Create or checkout branch per naming convention in `.claude/cece.local.md`
-2. **Git setup**: Read `## Git Strategy` from `.claude/cece.local.md` and prepare
-3. **Upstream info**: Spawn the `git-upstream-info` agent. It returns `upstream_remote`
-   and `default_branch`. Use these values in steps 4, 8, and when creating PRs.
+1. **Git setup**: Read `## Git Strategy` from `.claude/cece.local.md` and prepare
+2. **Upstream info**: Spawn the `git-upstream-info` agent. It returns `upstream_remote`
+   and `default_branch`. Use these values in substeps 3, 4, 8, and when creating PRs.
    If the agent returns an error, raise a <blocker>I couldn't determine the
    target of the PR — [agent error message]</blocker>
+3. **Branch**: Create or checkout branch per naming convention in `.claude/cece.local.md`.
+   For new branches, create from `<upstream_remote>/<default_branch>`:
+   `git checkout -b <branch-name> <upstream_remote>/<default_branch>`
 4. **Freshness check** (existing branches only, skip for new branches):
    a. Determine the base ref for this PR:
       - If this PR has a dependency (marked with `(depends on PR N)` in the Plan),
@@ -198,7 +200,7 @@ Work through each planned PR:
    b. Fetch the base ref: `git fetch <upstream_remote> <ref>`
    c. Check if branch includes all base ref changes:
       `git merge-base --is-ancestor <base-ref> HEAD`
-   d. If exit code is 0: branch is up to date — proceed to step 5
+   d. If exit code is 0: branch is up to date — proceed to substep 5 (Implement)
    e. If exit code is 1: branch is behind or diverged — rebase onto the base ref:
       - Run `git rebase <base-ref>`
       - If conflicts occur: edit affected files to resolve, then run
@@ -270,7 +272,7 @@ When your branch changes and has dependents listed in the Plan comment:
 **When a base PR is merged:** Before rebasing a dependent branch, check the merge
 state of its base PR (query via `gh pr view` or equivalent). If the base PR is
 merged, rebase the dependent branch onto `<upstream_remote>/<default_branch>`
-(from step 3) instead of the base branch.
+(from the git-upstream-info agent in Step 3, substep 2) instead of the base branch.
 
 Only rebase branches that match the naming convention in `.claude/cece.local.md`
 and are listed as dependents in the Plan comment.
