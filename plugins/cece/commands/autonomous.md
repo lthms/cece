@@ -39,7 +39,7 @@ freely. NEVER ask for permission.
 - Run tests
 - Create branches (per naming convention)
 - Commit to your branches
-- Push per `## Git Strategy` in `cece.local.md`
+- Push per `## Git Strategy` in `.cece/config.md`
 - Create/update PRs
 - Post issue comments
 
@@ -161,7 +161,7 @@ tracking, and decision documentation.
 
 **If argument provided:**
 
-1. Read `## Project Management` in `cece.local.md` to determine the platform
+1. Read `## Project Management` in `.cece/config.md` to determine the platform
 2. If argument is a full URL that doesn't match configured tracker, tell the
    user and request confirmation before proceeding
 3. Fetch the issue (content, comments, labels, linked PRs)
@@ -216,8 +216,8 @@ After sign-off:
 
 Work through each planned PR:
 
-1. **Branch**: Create or checkout branch per naming convention in `cece.local.md`
-2. **Git setup**: Read `## Git Strategy` from `cece.local.md` and prepare
+1. **Branch**: Create or checkout branch per naming convention in `.cece/config.md`
+2. **Git setup**: Read `## Git Strategy` from `.cece/config.md` and prepare
 3. **Implement**: Write code, commit freely
 4. **Test**: Execute the test plan. If tests fail, fix before proceeding. If
    test plan cannot be executed, raise as blocker — do not skip.

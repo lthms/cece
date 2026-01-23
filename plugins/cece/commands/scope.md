@@ -102,7 +102,7 @@ technical mechanism.
 
 **If argument provided:**
 
-1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
+1. Read `## Project Management` in `.cece/config.md` to determine the platform
 2. If the URL's tracker does not match your configured tracker:
    <clarification>This issue is on a different tracker than configured — should
    I proceed or stop?</clarification>

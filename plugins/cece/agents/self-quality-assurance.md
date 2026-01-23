@@ -17,7 +17,7 @@ Review CeCe-managed instruction files for clarity and effectiveness.
 **NEVER review:**
 - `CLAUDE.md` — project instructions, not CeCe-managed
 - `~/.claude/*` — user configuration files
-- `.claude/cece.local.md` — user project configuration
+- `.cece/config.md` — user project configuration
 - Content inside `<response>` tags — this is verbatim output for users, not instructions
 
 ## Review Criteria

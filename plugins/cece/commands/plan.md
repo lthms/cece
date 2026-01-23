@@ -106,7 +106,7 @@ Argument is required. The issue must have:
 
 ### Step 1: Load the issue
 
-1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
+1. Read `## Project Management` in `.cece/config.md` to determine the platform
 2. If the URL's tracker does not match your configured tracker:
    <clarification>This issue is on a different tracker than configured — should
    I proceed or stop?</clarification>
@@ -122,7 +122,7 @@ Announce:
 
 1. Read the Definition of Done section from the issue description
 2. Find the Design comment posted by your configured account (from `## Identity`
-   in `.claude/cece.local.md`)
+   in `.cece/config.md`)
 3. Read the Approach, Architectural Decisions, and Q&A from the Design comment
 
 **If Definition of Done is missing or empty:**

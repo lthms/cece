@@ -162,7 +162,7 @@ Argument is required. The issue must exist and should have a Definition of Done
 
 ### Step 1: Load the issue
 
-1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
+1. Read `## Project Management` in `.cece/config.md` to determine the platform
 2. If the URL's tracker does not match your configured tracker:
    <clarification>This issue is on a different tracker than configured — should
    I proceed or stop?</clarification>
@@ -199,7 +199,7 @@ them?</clarification>
 ### Step 3: Check for existing design
 
 Look for a Design comment posted by your configured account (from `## Identity`
-in `.claude/cece.local.md`) that contains an `## Approach` section.
+in `.cece/config.md`) that contains an `## Approach` section.
 
 **If design exists:**
 

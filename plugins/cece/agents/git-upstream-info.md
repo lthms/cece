@@ -9,7 +9,7 @@ You determine the upstream remote and default branch for the current repository.
 
 ## Steps
 
-1. Read `.claude/cece.local.md` and extract the `Upstream` value from the `## Git` section
+1. Read `.cece/config.md` and extract the `Upstream` value from the `## Git` section
 2. Run `git remote -v` to list all remotes and their URLs
 3. Find the remote whose URL ends with the Upstream value (e.g., URL
    `https://github.com/lthms/cece.git` matches Upstream `github.com/lthms/cece`)

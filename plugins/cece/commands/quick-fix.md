@@ -27,7 +27,7 @@ description: Address trivial PR review comments (typos, formatting, naming)
 - Read files, search code
 - Write/edit files
 - Create fixup commits on the current branch
-- Push to the branch (per `## Git Strategy` in `cece.local.md`)
+- Push to the branch (per `## Git Strategy` in `.cece/config.md`)
 - Reply to PR review threads
 
 **Forbidden:**
@@ -70,7 +70,7 @@ Announce:
 
 ### Step 1: Fetch PR and comments
 
-1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
+1. Read `## Project Management` in `.cece/config.md` to determine the platform
 2. Use the platform CLI (`gh` for GitHub, `glab` for GitLab) to fetch the PR diff, changed files, and all review comments
 3. If the PR cannot be found: <blocker>Cannot find the specified PR — is the reference correct?</blocker>
 4. Identify unresolved review threads

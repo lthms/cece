@@ -44,7 +44,7 @@ Execute freely without asking for approval once work begins.
 - Run tests
 - Create branches (per naming convention)
 - Commit to your branches
-- Push per `## Git Strategy` in `.claude/cece.local.md`
+- Push per `## Git Strategy` in `.cece/config.md`
 - Create/update PRs
 - Post issue comments
 - Edit own Plan comment (to check off completed PRs)
@@ -123,14 +123,14 @@ Argument is required. The issue must have:
 
 ### Step 1: Load context
 
-1. Read `## Project Management` in `.claude/cece.local.md` to determine the platform
+1. Read `## Project Management` in `.cece/config.md` to determine the platform
 2. If the URL's tracker does not match your configured tracker:
    <clarification>This issue is on a different tracker than configured — should
    I proceed or stop?</clarification>
 3. Fetch the issue (content, comments, labels, linked PRs)
 4. Read the Definition of Done section from the issue description
 5. Find the Design comment posted by your configured account (from `## Identity`
-   in `.claude/cece.local.md`)
+   in `.cece/config.md`)
 6. Find the Plan comment posted by your configured account
 
 **If Definition of Done is missing:**
@@ -183,12 +183,12 @@ Return to chat mode.
 
 Work through each planned PR:
 
-1. **Git setup**: Read `## Git Strategy` from `.claude/cece.local.md` and prepare
+1. **Git setup**: Read `## Git Strategy` from `.cece/config.md` and prepare
 2. **Upstream info**: Spawn the `git-upstream-info` agent. It returns `upstream_remote`
    and `default_branch`. Use these values in substeps 3, 4, 8, and when creating PRs.
    If the agent returns an error, raise a <blocker>I couldn't determine the
    target of the PR — [agent error message]</blocker>
-3. **Branch**: Create or checkout branch per naming convention in `.claude/cece.local.md`.
+3. **Branch**: Create or checkout branch per naming convention in `.cece/config.md`.
    For new branches, create from `<upstream_remote>/<default_branch>`:
    `git checkout -b <branch-name> <upstream_remote>/<default_branch>`
 4. **Freshness check** (existing branches only, skip for new branches):
@@ -208,7 +208,7 @@ Work through each planned PR:
         `git rebase --abort` and raise a <blocker>Rebase conflict when syncing
         branch with base — which files conflict and how should I
         resolve?</blocker>
-      - Force-push the rebased branch per `## Git Strategy` in `.claude/cece.local.md`
+      - Force-push the rebased branch per `## Git Strategy` in `.cece/config.md`
 5. **Implement**: Write code to implement the planned PR, committing as you progress
 6. **Test**: Execute the test plan. If tests fail, fix before proceeding.
    - If test plan says "User approved: no tests", skip testing for this PR
@@ -241,7 +241,7 @@ before declining.
 
 After addressing comments:
 
-5. Push fixes to your branch per `## Git Strategy` in `.claude/cece.local.md`
+5. Push fixes to your branch per `## Git Strategy` in `.cece/config.md`
 6. **Rebase dependents**: If this PR has dependent branches (marked with
    `(depends on PR N)` in the Plan), rebase them onto this branch after pushing
    your fixes. See "Auto-rebase procedure" below.
@@ -266,7 +266,7 @@ When your branch changes and has dependents listed in the Plan comment:
       - If still failing, abort the rebase and raise a <blocker>Rebase conflict
         in dependent branch — which files conflict and how should I
         resolve?</blocker>
-   d. Force-push the rebased branch per `## Git Strategy` in `.claude/cece.local.md`
+   d. Force-push the rebased branch per `## Git Strategy` in `.cece/config.md`
 3. Return to the original branch and continue
 
 **When a base PR is merged:** Before rebasing a dependent branch, check the merge
@@ -274,7 +274,7 @@ state of its base PR (query via `gh pr view` or equivalent). If the base PR is
 merged, rebase the dependent branch onto `<upstream_remote>/<default_branch>`
 (from the git-upstream-info agent in Step 3, substep 2) instead of the base branch.
 
-Only rebase branches that match the naming convention in `.claude/cece.local.md`
+Only rebase branches that match the naming convention in `.cece/config.md`
 and are listed as dependents in the Plan comment.
 
 ### Step 5: Blockers
