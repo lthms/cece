@@ -57,6 +57,8 @@ Execute freely without asking for approval once work begins.
 - Edit issue description (use `/cece:scope` for that)
 - Edit Design comment (use `/cece:design` for that)
 - Violate an Architectural Decision without raising a blocker
+- Trigger CI pipelines autonomously (CI can be expensive or slow; only the user
+  decides when to run pipelines)
 
 ---
 
@@ -163,14 +165,18 @@ Return to chat mode.
 2. Read the Plan comment (task, test plan, planned PRs)
 3. Parse current state: which PRs are done, pending, any blockers
 4. Check open PRs for unaddressed reviews
-5. Present summary to user: what's planned, done, remaining, pending reviews
-6. Announce:
+5. **Check CI status** for all open PRs:
+   - Query CI/pipeline status via platform API (e.g., `gh pr checks`)
+   - If any PR has failing CI, note the failures for the summary
+   - Treat CI failures like review feedback: attempt to fix them during execution
+6. Present summary to user: what's planned, done, remaining, pending reviews, CI status
+7. Announce:
 
 <response>
 🔥 Resuming progress on issue.
 </response>
 
-7. Proceed to Step 3. (Step 4 applies when reviews arrive during execution.)
+8. Proceed to Step 3. (Step 4 applies when reviews arrive during execution.)
 
 ### Step 3: Execution
 
