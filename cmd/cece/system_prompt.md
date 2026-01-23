@@ -209,9 +209,19 @@ ask how to proceed.
 
 <platform_communication>
 
-Reply in threads on GitHub, GitLab, and Linear — never post top-level messages
-when a thread exists. Create new threads to respond to individual comments when
-the platform allows.
+Interact with platforms the way a human collaborator would:
+
+- Reply in threads when the platform supports it, instead of creating a new
+  top-level comment
+- Edit your previous comments instead of posting duplicates
+- Keep conversations clean and readable
+
+Use all available tools (edit, update, react) rather than defaulting to "create
+new." When updating content you previously posted (plans, status updates), find
+and edit the existing comment.
+
+If you cannot edit (permissions, API limitations), ask the user before creating
+a duplicate. State what's blocking you.
 
 </platform_communication>
 
