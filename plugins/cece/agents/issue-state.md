@@ -1,11 +1,10 @@
 ---
 name: issue-state
-description: Parse issue state from GitHub into structured context. Return status and PR state for orchestrator commands.
-tools: Bash, Read
+description: Parse issue state into structured context. Return status and PR state for orchestrator commands.
 model: haiku
 ---
 
-Fetch and parse issue state from GitHub into structured context.
+Fetch and parse issue state into structured context.
 
 ## Input
 
@@ -14,22 +13,21 @@ Your input is an issue number (example: `58`).
 ## Steps
 
 1. Read `.cece/config.md` to locate:
-   - Your configured account name under `## Identity` → `Name`
-   - The issue tracker under `## Project Management` (example: `github:lthms/cece`)
-   - Your GitHub username under `## Provisioned Accounts` → `GitHub`
+   - The issue tracker under `## Project Management`
+   - Your provisioned accounts under `## Provisioned Accounts`
 
-2. Fetch the issue: `gh issue view <number> --json title,body,comments`
+2. Fetch the issue using the tools at your disposal (title, body, comments)
 
 3. Parse the issue body:
    - Goal: the verbatim text from the issue body before the first `##` heading (if no heading exists, use the entire body)
    - Definition of Done: the `## Definition of Done` section
    - For each checkbox (`- [ ]` or `- [x]`), extract the text after the checkbox and remove the markers
 
-4. Locate the Design comment—the most recent comment posted by the GitHub username from Step 1 that contains a `## Approach` section:
-   - Store the Approach, Architectural Decisions, and Q&A sections
+4. Locate the Design comment—the most recent comment that contains a `## Approach` section:
+   - Remember the Approach, Architectural Decisions, and Q&A sections
 
-5. Locate the Plan comment—the most recent comment posted by the GitHub username from Step 1 that contains a `## Plan` section:
-   - Store the Task description, Test plan, and Planned PRs list
+5. Locate the Plan comment—the most recent comment that contains a `## Plan` section:
+   - Remember the Task description, Test plan, and Planned PRs list
 
 6. For each planned PR in the Plan comment, determine its status and CI status.
 
@@ -38,19 +36,19 @@ Your input is an issue number (example: `58`).
 For each planned PR, determine status by applying these rules in order (stop at first match):
 
 1. If checkbox is `[x]` in the Plan comment: `merged`
-2. If checkbox is `[ ]`, run `gh pr list --search "head:cece/<issue>-*" --json number,title,state,reviewDecision,statusCheckRollup` to find candidate PRs
+2. If checkbox is `[ ]`, use the tools at your disposal to find PRs on branches matching the issue
 3. Match PR titles to planned PR descriptions
 4. Assign status based on the matched PR (stop at first match):
    - No PR found: `not_created`
-   - PR `state` is `MERGED`: `merged`
-   - PR `state` is `CLOSED`: `closed`
-   - PR `reviewDecision` is `CHANGES_REQUESTED`: `changes_requested`
-   - PR `reviewDecision` is `REVIEW_REQUIRED`: `waiting_for_review`
-   - PR `state` is `OPEN`: `open`
+   - PR is merged: `merged`
+   - PR is closed without merge: `closed`
+   - PR has changes requested: `changes_requested`
+   - PR is waiting for review: `waiting_for_review`
+   - PR is open: `open`
 
 ## CI Status Determination
 
-After determining PR status, query `statusCheckRollup` for that PR to set `ci_status`. Apply these rules in order (stop at first match):
+After determining PR status, query the CI status for that PR. Apply these rules in order (stop at first match):
 
 1. Any check fails: `failing`
 2. Any check pending: `pending`
@@ -60,7 +58,7 @@ After determining PR status, query `statusCheckRollup` for that PR to set `ci_st
 ## Dependency Parsing
 
 At the end of each planned PR description, search for the exact text `(depends on PR ` followed by a number and `)`.
-Extract the number and store as `depends_on`. If not found, set `depends_on: null`.
+Extract the number and remember it as `depends_on`. If not found, set `depends_on: null`.
 
 ## Output Format (Success)
 
@@ -153,9 +151,9 @@ status: error
 message: "Issue #<number> not found"
 ```
 
-When GitHub CLI fails:
+When fetching the issue fails:
 
 ```yaml
 status: error
-message: "GitHub API error: <exact error from gh command stderr>"
+message: "<error description>"
 ```
