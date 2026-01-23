@@ -26,9 +26,15 @@ prs:
   - index: <number>
     title: <planned PR title>
     pr_number: <number or null>
-    status: <not_created | open | waiting_for_review | changes_requested | merged | closed>
+    status: <not_created | open | merged | closed>
     ci_status: <passing | failing | pending | null>
     depends_on: <PR index or null>
+    unresolved_threads:
+      - path: <file path>
+        line: <line number>
+        messages:
+          - author: <username>
+            body: <message text>
 current_pr: <index to work on>
 user_answer: <answer from user if resuming after blocked/drift, or null>
 drift_history:
@@ -68,9 +74,10 @@ Determine the base ref for this PR:
 If PR status is `not_created`:
 1. Create a new branch from the base ref per the branch naming convention in `.cece/config.md`
 
-If PR status is `open`, `waiting_for_review`, or `changes_requested`:
+If PR status is `open`:
 1. Checkout the existing branch
 2. Rebase onto the base ref if needed
+3. Evaluate review feedback: check `unresolved_threads` — if empty and CI is passing, skip to Step 6 (this PR needs no work)
 
 ### Step 3: Implement
 
