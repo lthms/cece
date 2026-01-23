@@ -16,7 +16,7 @@ description: Execute work on an issue with an existing plan
 |----------|-------|
 | Indicator | 🔥 |
 | Arguments | `<issue-ref>` — issue number or URL (required) |
-| Exit | Task completion, or user sends `stop` |
+| Exit | Work session end, task completion, or user sends `stop` |
 | Scope | Execute planned work independently |
 | Persistence | Updates Plan comment; can post comments |
 | Resumption | Re-invoke with same issue-ref |
@@ -298,9 +298,27 @@ When blocked:
 5. If the decision should be recorded, tell the user to run `/cece:design` to
    update Q&A
 
-### Step 6: Completion
+### Step 6: Work Session End
 
-When all planned PRs are created:
+A **work session** ends when you have completed all addressable work and are
+waiting for external input. Exit to chat mode when:
+
+- All planned PRs are created, pushed, and waiting for review
+- All review feedback has been addressed and pushed
+- All fixable CI failures have been addressed and pushed
+- You hit a blocker that requires user decision
+
+When exiting at a work session boundary (not task completion):
+
+<response>
+🐱 Pausing progress on #<N>. [Brief summary of what was done]
+
+Re-run `/cece:progress <issue-ref>` to continue.
+</response>
+
+### Step 7: Task Completion
+
+When all planned PRs are created and the task is fully complete:
 
 1. **Pre-check**: Re-fetch the Definition of Done from the issue description. For
    each item, identify the specific code and tests that implement it. Concrete
