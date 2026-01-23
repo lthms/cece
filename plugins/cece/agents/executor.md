@@ -113,10 +113,10 @@ If PR does not exist (`pr_number` is null):
 If PR exists:
 1. Check if the base PR has been merged since the PR was created — if so, update the PR target to `<default_branch>`
 2. If the PR has review comments or CI failures:
-   - **Evaluate each review comment against Architectural Decisions and Approach** — determine if the feedback aligns with the constraints you were given
-   - If a comment suggests changes that would conflict with Architectural Decisions or Approach: return `blocked` with a question for the user explaining the conflict
-   - If the feedback is compatible with your inputs: address it
-   - When addressing feedback, mention relevant Architectural Decisions or user guidance in your reply to the review thread
+   - **Evaluate each review comment against your inputs** — check the Approach, Architectural Decisions, and Q&A to determine if the feedback aligns with the constraints you were given
+   - **NEVER implement feedback that conflicts with your inputs.** If a comment suggests changes that would conflict with Architectural Decisions, Approach, or Q&A guidance: return `blocked` with a question for the user explaining the specific conflict
+   - Only implement feedback that is compatible with your inputs
+   - When replying to review threads, mention the relevant Architectural Decisions or user guidance that informed your implementation — especially when the feedback conflicted and the user approved proceeding anyway
 3. Push updates to the branch
 4. Reply to review threads explaining how you addressed the feedback
 
