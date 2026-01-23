@@ -143,8 +143,17 @@ Return to chat mode.
 
 ### Step 3: Check for existing plan
 
-Look for a Plan comment posted by your configured account that contains a
-`## Plan` heading.
+Search issue comments for an existing Plan comment using these criteria (in
+order of reliability):
+
+1. **Structure match:** A comment containing all of these markers in order:
+   `## Plan`, then `**Task**:`, then `**Test plan**:`, then `**Planned PRs**:`
+2. **Author match (secondary):** Posted by your configured account (from
+   `## Provisioned Accounts` in `.cece/config.md`)
+
+Structure takes precedence. If a comment matches the Plan structure, treat it as
+the Plan comment regardless of whether author info is available or matches.
+There should only be one Plan comment per issue.
 
 **If plan exists:**
 
@@ -206,8 +215,10 @@ After sign-off:
 
 **If updating an existing plan:**
 
-1. Edit the existing Plan comment with the revised content
-2. Optionally post a brief comment noting what changed (if changes are significant)
+1. Edit the existing Plan comment in-place — do NOT post a new comment
+2. Use the platform's edit/update operation on the comment identified in Step 3
+3. Optionally post a separate brief comment noting what changed (if changes are
+   significant)
 
 Return to chat mode.
 
