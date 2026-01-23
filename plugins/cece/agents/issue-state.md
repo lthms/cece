@@ -1,7 +1,6 @@
 ---
 name: issue-state
 description: Parse issue state into structured context. Return status and PR state for orchestrator commands.
-model: haiku
 ---
 
 Fetch and parse issue state into structured context.
