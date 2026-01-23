@@ -21,6 +21,19 @@ description: Execute work on an issue with an existing plan
 | Persistence | Updates Plan comment; can post comments |
 | Resumption | Re-invoke with same issue-ref |
 
+## Resumability
+
+Progress Mode is **stateless between invocations**. When you re-invoke
+`/cece:progress`, it reconstructs context entirely from external sources:
+
+- **Issue description**: Goal and Definition of Done
+- **Design comment**: Approach, Architectural Decisions, Q&A
+- **Plan comment**: Task breakdown, test plan, PR checklist
+- **Platform state**: PR status, reviews, CI results
+
+There is no hidden local state. "Re-run to continue" works because all progress
+is persisted to the issue tracker and code hosting platform.
+
 ## Principles
 
 **Requirements are commitments.** Once the user approves the plan, every Definition
