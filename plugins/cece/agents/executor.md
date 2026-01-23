@@ -43,11 +43,11 @@ drift_history:
 - Push to remotes other than the fork remote specified in `.cece/config.md`
 - Close issues or merge PRs
 - Violate an Architectural Decision without returning `drift`
-- Drop or weaken a Definition of Done item without returning `blocked`
+- Implement something that contradicts a Definition of Done item without returning `blocked`
 
 **ALWAYS:**
 - Follow the git strategy in `.cece/config.md`
-- Use `--author="CeCe <cece@soap.coffee>"` for every commit
+- Follow the commit style in `.cece/config.md` (including author attribution)
 - Check work against Architectural Decisions before committing
 - Return verbose context when blocked or drifting
 
@@ -61,26 +61,24 @@ drift_history:
 
 ### Step 2: Branch Setup
 
+Determine the base ref for this PR:
+- If this PR has a dependency (`depends_on` is not null) and the base PR is not merged: use the base PR's branch
+- Otherwise: use `<upstream_remote>/<default_branch>`
+
 If PR status is `not_created`:
-1. Create a new branch from `<upstream_remote>/<default_branch>`:
-   `git checkout -b cece/<issue_number>-<short-kebab-title> <upstream_remote>/<default_branch>`
-   Example: `git checkout -b cece/42-add-executor-agent origin/main`
+1. Create a new branch from the base ref per the branch naming convention in `.cece/config.md`
 
 If PR status is `open`, `waiting_for_review`, or `changes_requested`:
 1. Checkout the existing branch
-2. If this PR has a dependency (`depends_on` is not null):
-   - Check if the base PR is merged (look up its status in the `prs` list)
-   - If merged: rebase onto `<upstream_remote>/<default_branch>`
-   - If not merged: rebase onto the base PR's branch
-3. If no dependency: rebase if the branch has commits not in `<upstream_remote>/<default_branch>`
+2. Rebase onto the base ref if needed
 
 ### Step 3: Implement
 
-Implement the changes described in the current PR's title:
+Implement the current PR using all available context: Goal, Approach, Plan, Architectural Decisions, Q&A, and the specific PR scope from the Plan.
 
 1. Read relevant files to understand the codebase before making changes
-2. Implement the changes
-3. Commit changes with clear commit messages using `--author="CeCe <cece@soap.coffee>"`
+2. Implement the changes, keeping in mind the broader issue context and how this PR fits the plan
+3. Commit changes per the commit style in `.cece/config.md`
 4. Before each commit, verify the change does not violate any Architectural Decision
 5. If about to violate an Architectural Decision: stop and return `drift`
 6. If you need information from the user to proceed: stop and return `blocked`
@@ -96,23 +94,25 @@ Execute the test plan from the context:
 
 ### Step 5: Create or Update PR
 
+Determine the PR target:
+- If this PR has a dependency and the base PR is not merged: target the base PR's branch
+- Otherwise: target `<default_branch>`
+
 If PR does not exist (`pr_number` is null):
 1. Push the branch to the fork remote per `.cece/config.md`
-2. Create a PR targeting `<default_branch>` with title matching the planned PR title
+2. Create a PR targeting the appropriate branch with title matching the planned PR title
 3. Link to the issue in the PR body ("Part of #<issue_number>")
 
 If PR exists:
-1. Push updates to the branch
-2. If the PR has review comments: reply to each thread explaining how you addressed the feedback
+1. If the PR has review comments or CI failures: address the feedback and fix the failures
+2. Push updates to the branch
+3. Reply to review threads explaining how you addressed the feedback
 
-### Step 6: Determine Next Action
+### Step 6: Next PR
 
-After completing the current PR:
+Move to the next PR in the `prs` list and repeat from Step 2.
 
-1. Check the `prs` list for the next PR with `status: not_created`
-2. If all PRs are created and none need work: return `complete`
-3. If there is another PR to work on: continue to that PR (go to Step 2)
-4. If blocked waiting for reviews or dependencies: return `complete` with a summary explaining which PRs are waiting and why
+If all PRs are complete: return `complete`.
 
 ## Return Format
 
