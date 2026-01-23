@@ -42,9 +42,11 @@ For each planned PR, determine status by applying these rules in order (stop at 
    - No PR found: `not_created`
    - PR is merged: `merged`
    - PR is closed without merge: `closed`
-   - PR has changes requested: `changes_requested`
-   - PR is waiting for review: `waiting_for_review`
    - PR is open: `open`
+
+## Review Feedback Collection
+
+For open PRs, fetch and return unresolved review threads only. Each thread includes its file path, line number, and messages.
 
 ## CI Status Determination
 
@@ -92,15 +94,22 @@ prs:
   - index: 1
     title: "<planned PR title>"
     pr_number: <number or null>
-    status: <not_created | open | waiting_for_review | changes_requested | merged | closed>
+    status: <not_created | open | merged | closed>
     ci_status: <passing | failing | pending | null>
     depends_on: <PR index or null>
+    unresolved_threads:
+      - path: "<file path>"
+        line: <line number>
+        messages:
+          - author: "<username>"
+            body: "<message text>"
   - index: 2
     title: "<second planned PR title>"
     pr_number: null
     status: not_created
     ci_status: null
     depends_on: 1
+    unresolved_threads: []
 ```
 
 ## Output Format (Missing Prerequisites)
