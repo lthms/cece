@@ -71,7 +71,7 @@ Create a fresh `~/research/<slug>/` workspace directory.
 
 ### Step 2: Clarify
 
-<clarification>What specific aspects of this subject should I focus on?</clarification>
+<clarification>Before I dive in — any specific angles you care about?</clarification>
 
 Conduct a clarification session with the user to remove ambiguity from the
 research task.
@@ -151,7 +151,7 @@ Clean up the `~/research/<slug>/` workspace directory.
 Announce:
 
 <response>
-Research complete. Report saved to ~/research/<slug>.md
+All done. Report saved to ~/research/<slug>.md
 </response>
 
 ### Step 9: Complete
