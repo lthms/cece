@@ -1,5 +1,5 @@
 ---
-description: Execute work on an issue by delegating to an executor agent
+description: Execute planned work on an issue autonomously
 ---
 
 <policy>
@@ -17,9 +17,9 @@ description: Execute work on an issue by delegating to an executor agent
 | Indicator | 🏃 |
 | Arguments | `<issue-ref>` — issue number or URL (required) |
 | Exit | Task completion, blocker, or user sends `stop` |
-| Scope | Orchestrate work via executor agent |
-| Persistence | Updates Plan comment via executor |
-| Resumption | Re-invoke with same issue-ref |
+| Scope | Implement planned PRs autonomously |
+| Persistence | Updates Plan comment and issue comments |
+| Resumption | Re-invoke with same issue-ref — state lives in issue and PRs |
 
 ## Principles
 
@@ -42,7 +42,6 @@ The executor discovers git state on spawn; no need to serialize progress.
 - Spawn `issue-state` agent to fetch context
 - Spawn `executor` agent to implement work
 - Present summaries and questions to user
-- Update Plan comment (via executor)
 
 **NEVER:**
 - Read files directly (delegate to agents)
@@ -50,6 +49,7 @@ The executor discovers git state on spawn; no need to serialize progress.
 - Run tests
 - Create branches or commits
 - Push to any remote
+- Update Plan comment directly (executor does this)
 - Close issues or merge PRs
 
 ---
@@ -150,20 +150,14 @@ Return to chat mode.
 
 **If status is `blocked`:**
 
-Present the question to the user:
+<blocker>[blocked.question from executor]</blocker>
 
-<response>
-🏃 [blocked.question from executor]
-</response>
-
-Wait for user response. When user responds, go to Step 5.
+When user responds, go to Step 5.
 
 **If status is `drift`:**
 
-Present the dead-end:
-
-<response>
-🏃 Hit a dead end.
+<clarification>
+Hit a dead end.
 
 [drift.what_was_attempted field]
 
@@ -172,38 +166,24 @@ This conflicts with: [drift.why_it_failed field]
 [drift.suggestion field, if present]
 
 How should I proceed?
-</response>
+</clarification>
 
-Wait for user response. When user responds, go to Step 5.
+When user responds, go to Step 5.
 
 ### Step 5: Continue After User Input
 
 After the user provides an answer:
 
-1. Spawn `issue-state` again to get fresh PR state
-2. Spawn `executor` with:
+1. Spawn `executor` with the context from Step 1, plus:
+   - `current_pr`: from previous executor result
+   - `user_answer`: the user's response
+   - `drift_history`: from previous drift, if any
 
-```yaml
-issue_number: <from issue-state>
-goal: <from issue-state>
-dod: <from issue-state>
-approach: <from issue-state>
-architectural_decisions: <from issue-state>
-qa: <from issue-state>
-test_plan: <from issue-state>
-prs: <from issue-state>
-current_pr: <from previous executor result>
-user_answer: <the user's response>
-drift_history:
-  - what_was_attempted: <from previous drift, if any>
-    why_it_failed: <from previous drift, if any>
-```
+2. Return to Step 4 to handle the new result
 
-3. Return to Step 4 to handle the new result
+### Interruption
 
-### Step 6: Interruption
-
-If the user sends `stop`:
+If the user sends `stop` at any point:
 
 <response>
 🐱 Stopping work on issue #<N>.
@@ -219,9 +199,9 @@ Return to chat mode.
 
 ## UX Guidelines
 
-**Progress updates:** When spawning the executor, announce what you're working on:
-- "Working on PR 1: Create issue-state agent..."
-- "Continuing with PR 2..."
+**Progress updates:** Announce what you're working on in active voice:
+- "I am working on PR 1: Create issue-state agent..."
+- "I am continuing with PR 2..."
 
 **Summarize, don't echo:** When the executor returns, summarize the outcome. Don't
 paste the raw YAML or verbose context. Extract the key information.
