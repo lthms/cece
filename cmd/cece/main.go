@@ -66,7 +66,7 @@ func run() error {
 	}
 
 	// Read project config
-	projectConfig, err := readProjectConfig()
+	projectConfig, hasConfig, err := readProjectConfig()
 	if err != nil {
 		return fmt.Errorf("failed to read project config: %w", err)
 	}
@@ -77,7 +77,8 @@ func run() error {
 
 	// Build arguments (plugin.InstallPath no longer needed since plugin is installed)
 	_ = plugin // Plugin verification done, but path not needed for args
-	args := buildArgs(os.Args[1:], fullPrompt)
+	args := buildArgs(os.Args[1:], fullPrompt, hasConfig)
+	slog.Debug("built args", "hasConfig", hasConfig, "argCount", len(args))
 
 	// Exec into claude
 	return syscall.Exec(claudePath, append([]string{"claude"}, args...), os.Environ())
@@ -169,20 +170,20 @@ func ensurePlugin() (*Plugin, error) {
 	return nil, fmt.Errorf("plugin %s not found after installation", pluginID)
 }
 
-func readProjectConfig() (string, error) {
+func readProjectConfig() (string, bool, error) {
 	// Look for .cece/config.md in current directory
 	configPath := ".cece/config.md"
 
 	content, err := os.ReadFile(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {
-			// No config file, return empty string
-			return "", nil
+			// No config file
+			return "", false, nil
 		}
-		return "", fmt.Errorf("failed to read %s: %w", configPath, err)
+		return "", false, fmt.Errorf("failed to read %s: %w", configPath, err)
 	}
 
-	return string(content), nil
+	return string(content), true, nil
 }
 
 func composeSystemPrompt(systemPrompt, projectConfig string) string {
@@ -194,7 +195,9 @@ func composeSystemPrompt(systemPrompt, projectConfig string) string {
 	return sb.String()
 }
 
-func buildArgs(originalArgs []string, systemPromptContent string) []string {
+const setupPrompt = "Hello! Let's set you up to contribute to this project."
+
+func buildArgs(originalArgs []string, systemPromptContent string, hasConfig bool) []string {
 	var args []string
 	var userAppendPrompt string
 	skipNext := false
@@ -227,6 +230,11 @@ func buildArgs(originalArgs []string, systemPromptContent string) []string {
 		finalPrompt = finalPrompt + "\n\n" + userAppendPrompt
 	}
 	args = append(args, "--append-system-prompt", finalPrompt)
+
+	// Add setup prompt if no config exists
+	if !hasConfig {
+		args = append(args, setupPrompt)
+	}
 
 	return args
 }
