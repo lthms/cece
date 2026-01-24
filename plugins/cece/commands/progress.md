@@ -171,14 +171,28 @@ Return to chat mode.
    - Query CI/pipeline status via platform API (e.g., `gh pr checks`)
    - If any PR has failing CI, note the failures for the summary
    - Treat CI failures like review feedback: attempt to fix them during execution
-7. Present summary to user: what's planned, done, remaining, pending reviews, CI status
-8. Announce:
+7. **Sync branches**: For each open PR, ensure its branch is up to date:
+   a. Determine upstream remote and default branch:
+      - Read `Upstream` from `## Git` in `.cece/config.md` (e.g., `lthms/cece`)
+      - Run `git remote -v` to find which remote's URL contains the Upstream value — this is `<upstream_remote>`
+      - Run `git remote show <upstream_remote> | grep 'HEAD branch'` — this is `<default_branch>`
+   b. For each open PR branch:
+      - Checkout the branch
+      - Determine the base ref: if this PR depends on another (marked in Plan),
+        use that PR's branch (or `<upstream_remote>/<default_branch>` if merged).
+        Otherwise use `<upstream_remote>/<default_branch>`.
+      - Fetch and check: `git fetch <upstream_remote> && git merge-base --is-ancestor <base-ref> HEAD`
+      - If behind (exit code 1): rebase onto base ref and force-push per `## Git Strategy`
+      - If conflicts occur and cannot be resolved after one retry, raise a
+        <blocker>Rebase conflict — which files conflict and how should I resolve?</blocker>
+8. Present summary to user: what's planned, done, remaining, pending reviews, CI status
+9. Announce:
 
 <response>
 🔥 Resuming progress on issue.
 </response>
 
-9. Proceed to Step 3. (Step 4 applies when reviews arrive during execution.)
+10. Proceed to Step 3. (Step 4 applies when reviews arrive during execution.)
 
 ### Step 3: Execution
 
@@ -192,39 +206,15 @@ Return to chat mode.
 Work through each planned PR:
 
 1. **Git setup**: Read `## Git Strategy` from `.cece/config.md` to determine push remote and workflow
-2. **Upstream info**: Determine the upstream remote and default branch:
-   a. Read `Upstream` from `## Git` in `.cece/config.md` (e.g., `lthms/cece`)
-   b. Run `git remote -v` and find the remote whose URL contains the Upstream value
-   c. Run `git remote show <remote> | grep 'HEAD branch'` to get the default branch
-   d. If detection fails, raise a <blocker>Could not determine upstream remote
-      or default branch — check `.cece/config.md` and git remotes</blocker>
-   e. Use `<upstream_remote>` and `<default_branch>` in subsequent steps
-3. **Branch**: Create or checkout branch per naming convention in `.cece/config.md`.
+2. **Branch**: Create or checkout branch per naming convention in `.cece/config.md`.
    For new branches, create from `<upstream_remote>/<default_branch>`:
    `git checkout -b <branch-name> <upstream_remote>/<default_branch>`
-4. **Freshness check** (existing branches only, skip for new branches):
-   a. Determine the base ref for this PR:
-      - If this PR has a dependency (marked with `(depends on PR N)` in the Plan),
-        check if the base PR is merged. If merged, use `<upstream_remote>/<default_branch>`.
-        If not merged, use the base PR's branch.
-      - If this PR has no dependency, use `<upstream_remote>/<default_branch>`.
-   b. Fetch the base ref: `git fetch <upstream_remote> <ref>`
-   c. Check if branch includes all base ref changes:
-      `git merge-base --is-ancestor <base-ref> HEAD`
-   d. If exit code is 0: branch is up to date — proceed to substep 5 (Implement)
-   e. If exit code is 1: branch is behind or diverged — rebase onto the base ref:
-      - Run `git rebase <base-ref>`
-      - If conflicts occur: edit affected files to resolve, then run
-        `git rebase --continue`. If conflicts persist after retry, run
-        `git rebase --abort` and raise a <blocker>Rebase conflict when syncing
-        branch with base — which files conflict and how should I
-        resolve?</blocker>
-      - Force-push the rebased branch per `## Git Strategy` in `.cece/config.md`
-5. **Implement**: Write code to implement the planned PR, committing as you progress
-6. **Test**: Execute the test plan. If tests fail, fix before proceeding.
+   (Existing branches were synced in Step 2.)
+3. **Implement**: Write code to implement the planned PR, committing as you progress
+4. **Test**: Execute the test plan. If tests fail, fix before proceeding.
    - If test plan says "User approved: no tests", skip testing for this PR
    - If test plan cannot be executed for other reasons, raise as blocker
-7. **PR**: When PR scope is complete:
+5. **PR**: When PR scope is complete:
    - **Gate**: Before creating the PR, confirm which Definition of Done items this
      PR implements. Verify the PR fully implements those items. If incomplete,
      either complete the missing work, split across multiple PRs, or raise a
@@ -232,10 +222,10 @@ Work through each planned PR:
    - Create PR targeting `<default_branch>`, linking to the issue ("Fixes #N" or "Part of #N")
    - Assign user as reviewer
    - Update Plan comment: add PR link (do not check off until merged)
-8. **Rebase dependents**: If this PR has dependent branches (marked with
+6. **Rebase dependents**: If this PR has dependent branches (marked with
    `(depends on PR N)` in the Plan), rebase them onto this branch after pushing.
    See "Auto-rebase procedure" below.
-9. **Repeat** for remaining PRs
+7. **Repeat** for remaining PRs
 
 ### Step 4: Handling Reviews
 
