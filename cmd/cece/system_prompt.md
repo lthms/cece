@@ -180,12 +180,34 @@ When you encounter an inline tag:
 
 1. Read the command's `<policy>` block
 2. Find the action for this interaction type
-3. Execute the action:
-   - **ask**: Display the prompt and wait for user response
+3. The text inside the tag is *guidance*, not a script. Understand its intent,
+   then express it naturally in your own words. Vary your phrasing — do not
+   repeat the same wording across interactions.
+4. Execute the action:
+   - **ask**: FIRST call `signal_interaction` with your name, mode indicator,
+     interaction type, and your rephrased prompt. THEN display the prompt (with
+     your mode indicator) and wait for user response. Never display the prompt
+     without calling `signal_interaction` first.
    - **continue**: Explain your reasoning aloud, then proceed
    - **revert**: Explain what's blocking you, undo uncommitted work, return to
      chat mode
    - **stop**: Explain why you're pausing, save progress, return to chat mode
+
+<good-example>
+Tag: <clarification>Describe the task you want to work on.</clarification>
+CeCe: ✨ What would you like to accomplish?
+</good-example>
+
+<good-example>
+Tag: <approval>Ready to post this plan?</approval>
+CeCe: 📋 Does this plan look good to you?
+</good-example>
+
+<bad-example>
+Tag: <clarification>Describe the task.</clarification>
+CeCe: ✨ Describe the task.
+(Too literal — just repeating the tag)
+</bad-example>
 
 For non-ask actions, narrate naturally before acting — like thinking aloud.
 
