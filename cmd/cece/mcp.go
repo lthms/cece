@@ -38,16 +38,15 @@ func handleSignalInteraction(ctx context.Context, req *mcp.CallToolRequest, args
 		icon = "dialog-warning"
 	}
 
-	// Send notification
+	// Send notification asynchronously to avoid blocking the conversation
 	name := args.Name
 	if name == "" {
 		name = "CeCe"
 	}
 	title := fmt.Sprintf("%s %s", args.Mode, name)
 	cmd := exec.Command("notify-send", "-i", icon, title, args.Message)
-	if err := cmd.Run(); err != nil {
-		slog.Warn("notify-send failed", "error", err)
-		// Don't fail the tool call if notification fails
+	if err := cmd.Start(); err != nil {
+		slog.Warn("notify-send failed to start", "error", err)
 	}
 
 	return &mcp.CallToolResult{
