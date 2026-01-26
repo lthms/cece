@@ -47,6 +47,12 @@ func handleSignalInteraction(ctx context.Context, req *mcp.CallToolRequest, args
 	cmd := exec.Command("notify-send", "-i", icon, title, args.Message)
 	if err := cmd.Start(); err != nil {
 		slog.Warn("notify-send failed to start", "error", err)
+	} else {
+		go func() {
+			if err := cmd.Wait(); err != nil {
+				slog.Warn("notify-send failed", "error", err)
+			}
+		}()
 	}
 
 	return &mcp.CallToolResult{
