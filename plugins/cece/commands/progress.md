@@ -235,23 +235,52 @@ Work through each planned PR:
 
 ### Step 4: Handling Reviews
 
-When PR reviews come in, evaluate each comment:
+Reviews are a conversation, not a command queue. Reviewers may misunderstand
+context, ask rhetorical questions, or surface concerns without prescribing a
+fix. Your job is to understand the reviewer's intent before deciding how to
+respond.
 
-1. Does it change what "done" means? → <clarification>This review feedback changes the Definition of Done — should I implement it?</clarification>
-2. Would it violate an Architectural Decision? → <blocker>This review feedback conflicts with an Architectural Decision — how should I proceed?</blocker>
-3. Does it add work beyond the planned scope? → <clarification>This review feedback adds work beyond the planned scope — should I implement it?</clarification>
-4. Otherwise → Implement the change
+**Principles:**
 
-After addressing comments:
+- **Never take comments at face value.** Before acting, verify whether the
+  reviewer understood the code correctly and had complete context. If they
+  misread the code or missed context, explain what they missed in your reply
+  rather than making unnecessary changes.
+- **When a comment is a question, answer it — don't act on it.** If a comment
+  can be summarized as a question (explicit or implied), investigate and reply
+  with your findings. Let the reviewer decide what to do with your answer. Only
+  make changes when the reviewer explicitly requests them or when your
+  investigation reveals a genuine problem.
 
-5. Push fixes to your branch per `## Git Strategy` in `.cece/config.md`
-6. **Rebase dependents**: If this PR has dependent branches (marked with
+**Evaluation order for each comment:**
+
+1. **Understand intent**: Is this a question, a suggestion, or an explicit
+   change request? Read the comment carefully — look for question marks,
+   hedging language ("maybe", "should we", "I wonder"), or exploratory tone.
+2. **If it's a question or exploratory**: Investigate the concern. Read the
+   relevant code, check the design, and reply with your analysis. Do not make
+   changes unless your investigation uncovers an actual problem.
+3. **If it's a change request**: Verify the reviewer understood the code
+   correctly and has complete context. If they misread the code or missed
+   context, explain the actual behavior or design rationale in your reply.
+   Only implement changes when the reviewer's understanding is accurate.
+4. Does it change what "done" means? → <clarification>This review feedback changes the Definition of Done — should I implement it?</clarification>
+5. Would it violate an Architectural Decision? → <blocker>This review feedback conflicts with an Architectural Decision — how should I proceed?</blocker>
+6. Does it add work beyond the planned scope? → <clarification>This review feedback adds work beyond the planned scope — should I implement it?</clarification>
+7. Otherwise → Implement the change
+
+After addressing all comments on a PR:
+
+8. Push fixes to your branch per `## Git Strategy` in `.cece/config.md`
+9. **Rebase dependents**: If this PR has dependent branches (marked with
    `(depends on PR N)` in the Plan), rebase them onto this branch after pushing
    your fixes. See "Auto-rebase procedure" below.
-7. In each thread, explain what you changed or why you declined the feedback (with user approval)
-8. Update the Plan comment if PR scope changed based on review
-9. If review requires changes to Definition of Done, tell the user to run `/cece:scope`
-10. If review requires changes to Approach, Architectural Decisions, or Q&A, tell the
+10. In each thread, explain what you changed and why. If you investigated a
+    question without making changes, summarize your findings. If you received
+    user approval to decline feedback, explain that in your reply.
+11. Update the Plan comment if PR scope changed based on review
+12. If review requires changes to Definition of Done, tell the user to run `/cece:scope`
+13. If review requires changes to Approach, Architectural Decisions, or Q&A, tell the
     user to run `/cece:design`
 
 ### Auto-rebase procedure
