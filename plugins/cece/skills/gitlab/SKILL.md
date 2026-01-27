@@ -1,8 +1,8 @@
 ---
 name: gitlab
 description: >
-  Required skill to interact with GitLab. Includes glab CLI commands
-  for MR operations, discussion threads, and CI pipelines.
+  Required skill to perform GitLab MR operations, manage discussion
+  threads, and check CI pipeline status using the glab CLI.
 user-invocable: false
 ---
 
@@ -52,8 +52,8 @@ glab mr view <mr-iid> --comments
 
 <action name="discussions">
 
-The `glab mr note` command only creates top-level comments. To reply in
-existing threads, use `glab api` instead.
+`glab mr note` creates top-level comments only. Use `glab api` to reply in
+existing threads.
 
 <action name="top-level-comment">
 
@@ -84,12 +84,12 @@ glab api --method POST \
 
 Replace `<discussion_id>` with the discussion's `id` from the listing above.
 
-</action>
-
 <constraint>
 Thread resolution triggers GitLab workflows and notifications. Only users
 should resolve threads — NEVER resolve them programmatically.
 </constraint>
+
+</action>
 
 </action>
 
