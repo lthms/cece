@@ -133,7 +133,17 @@ All artifacts loaded.
    # Result: the branch name is <default_branch>
    ```
 
-2. For each PR in Plan comment that exists but is not merged:
+2. Fetch upstream before any branch or merge status checks:
+
+   ```bash
+   git fetch <upstream_remote>
+   ```
+
+3. Check merge status: for each PR in Plan comment that is not already checked
+   off, check its status on the hosting platform. For any that show "merged",
+   edit the Plan comment to tick its checkbox.
+
+4. For each PR in Plan comment that exists but is not merged:
 
    a. Checkout the branch:
       ```bash
@@ -148,9 +158,8 @@ All artifacts loaded.
       | PR depends on merged PR | `<upstream_remote>/<default_branch>` |
       | PR depends on open PR | That PR's branch |
 
-   c. Check if behind:
+   c. Check if behind (upstream already fetched in step 2):
       ```bash
-      git fetch <upstream_remote>
       git merge-base --is-ancestor <base-ref> HEAD
       # Exit 0 = up to date, Exit 1 = behind
       ```
@@ -163,7 +172,7 @@ All artifacts loaded.
       git push --force-with-lease
       ```
 
-3. If rebase conflicts cannot be resolved:
+5. If rebase conflicts cannot be resolved:
 
    <blocker>
    Rebase conflict in `<branch>`. Files: [list conflicts]. How should I resolve?
@@ -193,6 +202,14 @@ All existing PR branches up to date.
 
 2. For each planned PR (respecting dependency order):
 
+   <step name="pre-check">
+   Before starting work, check PR status on the hosting platform:
+
+   - If this PR shows "merged", skip to the next PR.
+   - If a predecessor PR shows "merged", rebase onto
+     `<upstream_remote>/<default_branch>` instead of the predecessor's branch.
+   </step>
+
    <step name="branch">
    | Condition | Command |
    |-----------|---------|
@@ -201,7 +218,7 @@ All existing PR branches up to date.
    </step>
 
    <step name="implement">
-   Write code for this PR's scope. Commit incrementally:
+   Write code for this PR's scope (from Plan comment). Commit incrementally:
    ```bash
    git commit --author="CeCe <cece@soap.coffee>" -m "<message>"
    ```
@@ -229,7 +246,7 @@ All existing PR branches up to date.
    <step name="create-pr">
    Create PR:
    - Target: `<default_branch>`
-   - Body: "Part of #<N>" or "Fixes #<N>" if final PR
+   - Body: "Fixes #<N>" if this is the final PR, otherwise "Part of #<N>"
    - Reviewer: assign user
 
    Update Plan comment: add PR link. Do not check off (checked when merged).
