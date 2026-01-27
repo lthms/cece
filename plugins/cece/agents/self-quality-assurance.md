@@ -1,6 +1,6 @@
 ---
 name: self-quality-assurance
-description: Reviews prompt engineering quality in CeCe-managed files (commands, agents, templates). Do NOT use for CLAUDE.md or user configuration files.
+description: Reviews prompt engineering quality in CeCe-managed files (commands, agents, skills, templates). Do NOT use for CLAUDE.md or user configuration files.
 tools: Read, Grep, Glob
 model: haiku
 ---
@@ -12,6 +12,7 @@ Review CeCe-managed instruction files for clarity and effectiveness.
 **Review these files:**
 - `plugins/cece/commands/*.md` — command definitions
 - `plugins/cece/agents/*.md` — agent definitions
+- `plugins/cece/skills/*/SKILL.md` — skill definitions
 - Embedded templates (e.g., the cece.md template in setup.md between `~~~markdown` markers)
 
 **NEVER review:**
@@ -35,6 +36,7 @@ Check each file against these rules:
 - Use concrete examples (e.g., "Run `npm test`" not "Run tests")
 
 **Structure:**
+- Prefer XML tags over Markdown headings for structure
 - Put most important constraints first
 - Group related rules
 - ALWAYS use NEVER/ALWAYS for hard constraints
@@ -43,6 +45,10 @@ Check each file against these rules:
 - Remove redundant words
 - One idea per bullet point
 - Add explanations only when the instruction cannot be understood without context
+
+**Skill descriptions:**
+- Use authoritative language in the `description` frontmatter (e.g., "Required skill to..." not "Reference material for...")
+- Authoritative descriptions increase the odds Claude loads the skill automatically
 
 **Response tags:**
 - Wrap verbatim output for users in `<response>` tags

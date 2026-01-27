@@ -40,4 +40,16 @@ and agents — not CLAUDE.md, system prompts, or user configs.
 Commands and agents are markdown files with YAML frontmatter. When writing or
 modifying them:
 
+- Prefer XML tags over Markdown headings for structure
+- Run `self-quality-assurance` on your changes, loop until it is satisfied
+
+## Writing Skills
+
+Skills live in `plugins/cece/skills/<name>/SKILL.md`. When writing or
+modifying them:
+
+- Use authoritative language in the `description` frontmatter field (e.g.,
+  "Required skill to...") to increase the odds Claude loads the skill
+  automatically
+- Prefer XML tags over Markdown headings for structure
 - Run `self-quality-assurance` on your changes, loop until it is satisfied
