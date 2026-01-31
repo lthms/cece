@@ -34,6 +34,15 @@ type Plugin struct {
 func main() {
 	setupLogger()
 
+	// Handle mcp subcommand
+	if len(os.Args) > 1 && os.Args[1] == "mcp" {
+		if err := runMCPServer(); err != nil {
+			fmt.Fprintf(os.Stderr, "cece mcp: %v\n", err)
+			os.Exit(1)
+		}
+		return
+	}
+
 	if err := run(); err != nil {
 		fmt.Fprintf(os.Stderr, "cece: %v\n", err)
 		os.Exit(1)
@@ -63,6 +72,11 @@ func run() error {
 	plugin, err := ensurePlugin()
 	if err != nil {
 		return fmt.Errorf("plugin check failed: %w", err)
+	}
+
+	// Ensure MCP server is configured
+	if err := ensureMCPServer(); err != nil {
+		return fmt.Errorf("MCP server check failed: %w", err)
 	}
 
 	// Read project config
